@@ -1,0 +1,34 @@
+<body>
+<div class="profile_container">
+  <div class="profile_top_container">
+    <img id="profile_img" src="assets/images/profile_img.png" alt="">
+    <div class="profile_top_information">
+      <h1 id="username">Alibaba Ali</h1>
+      <p id="gmail">username@gmail.com</p>
+      <input id="upload_img" type="file" (change)="handleImageUpload($event)" style="display: none">
+      <div class="upload_container">
+        <label class="upload_img_label" for="upload_img">{{ uploadLabel }}</label>
+        <p>{{ formatImageName(uploadedImageName) }}</p>
+      </div>
+    </div>
+  </div>
+  <div class="profile_bottom_info">
+    <div class="profile_info">
+      <h1>Username</h1>
+      <input type="text" value="Alibaba Ali">
+    </div>
+    <div class="profile_info">
+      <h1>Email</h1>
+      <input type="text" value="username@gmail.com">
+    </div>
+    <div class="profile_info">
+      <h1>Password</h1>
+      <input type="password" value="Alibaba Ali">
+    </div>
+    <button class="btn_profile_save_changes">Save Changes</button>
+  </div>
+</div>
+<script>
+
+</script>
+</body>
