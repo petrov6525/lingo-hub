@@ -3,10 +3,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {ProfileComponent} from "./profile/profile.component";
+import { DictionariesComponent } from './dictionaries/dictionaries.component';
+import { DictionariesListComponent } from './dictionaries-list/dictionaries-list.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ProfileComponent,
+    DictionariesComponent,
+    DictionariesListComponent
   ],
   imports: [
     BrowserModule,
