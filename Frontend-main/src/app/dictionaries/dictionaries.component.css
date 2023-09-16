@@ -1,21 +1,27 @@
-body {
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-image: url('http://localhost:4200/assets/images/dictionaries_background_img.png');
   background-repeat: no-repeat;
   background-size: cover;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  z-index: -2;
 }
 .dictionaries_container{
   display: flex;
   flex-wrap: wrap;
-  width: 70%;
-  margin: 12rem auto 0 25rem;
+  width: 80%;
   gap: 2rem;
-  justify-content: flex-start;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 0 auto;
+  margin-top: 5rem;
 }
 .dictionary{
-  width: 30%;
+  width: 25%;
   min-height: 8.5rem;
   background-color: rgba(217, 217, 217, 0.7);
   display: flex;

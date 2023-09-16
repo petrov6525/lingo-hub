@@ -4,16 +4,18 @@
   <a routerLink="/dictionaries">Dictionaries</a>
 </nav>
 
-<router-outlet>
-  <div class="lingo_logo_div" *ngIf="!isRootRoute()">
-    <img class="logo_img" src="assets/images/logo.png" alt="My Image">
-    <h1 class="lingohub">LingoHub</h1>
-    <img class="profile_top_img" src="assets/images/profile_img.png" (click)="redirectToProfile('your-username')">
-  </div>
-  <div class="side_menu" *ngIf="!isRootRoute()">
-    <a class="menu_a" routerLinkActive="active" routerLink="/translator">Translator</a>
-    <a class="menu_a" routerLinkActive="active" routerLink="/dictionaries">Dictionaries</a>
-    <a class="menu_a" routerLinkActive="active" routerLink="/quiz">Quiz</a>
-  </div>
-</router-outlet>
+<div class="lingo_logo_div" *ngIf="!isRootRoute()">
+  <img class="logo_img" src="assets/images/logo.png" alt="My Image">
+  <h1 class="lingohub">LingoHub</h1>
+  <img class="profile_top_img" src="assets/images/profile_img.png" (click)="redirectToProfile('your-username')">
+</div>
+<div class="side_menu" *ngIf="!isRootRoute()">
+  <a class="menu_a" routerLinkActive="active" routerLink="/translator">Translator</a>
+  <a class="menu_a" routerLinkActive="active" routerLink="/dictionaries">Dictionaries</a>
+  <a class="menu_a" routerLinkActive="active" routerLink="/quiz">Quiz</a>
+</div>
+<div class="content-container">
+  <router-outlet></router-outlet>
+</div>
+
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dictionaries',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
 })
 export class DictionariesComponent {
 
+  constructor(private router: Router) {}
+
+  redirectToDictionary(dictionaryName: string) {
+    this.router.navigate(['/dictionaries', dictionaryName]);
+  }
 }
