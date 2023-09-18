@@ -21,19 +21,19 @@ public class User implements Serializable {
     private String token;
 
     @OneToOne
-    @JoinColumn
+    @JoinColumn(name = "logo_id", referencedColumnName = "id")
     private Logo logo;
 
     public User() {
     }
 
-    public User(int id, String name, String email, String password, String token, long logoId) {
+    public User(int id, String name, String email, String password, String token, Logo logo) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.token = token;
-        this.logoId = logoId;
+        this.logo = logo;
     }
 
     public int getId() {
@@ -76,23 +76,11 @@ public class User implements Serializable {
         this.token = token;
     }
 
-    public long getLogoId() {
-        return logoId;
+    public Logo getLogo() {
+        return logo;
     }
 
-    public void setLogoId(long logoId) {
-        this.logoId = logoId;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", token='" + token + '\'' +
-                ", logoId=" + logoId +
-                '}';
+    public void setLogo(Logo logo) {
+        this.logo = logo;
     }
 }
