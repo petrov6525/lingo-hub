@@ -19,19 +19,21 @@ public class User implements Serializable {
     private String password;
 
     private String token;
-    private String logoUrl;
 
-    public User(int id, String name, String email, String password, String token, String logoUrl) {
+    @OneToOne
+    @JoinColumn
+    private Logo logo;
+
+    public User() {
+    }
+
+    public User(int id, String name, String email, String password, String token, long logoId) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.token = token;
-        this.logoUrl = logoUrl;
-    }
-
-    public User() {
-
+        this.logoId = logoId;
     }
 
     public int getId() {
@@ -74,12 +76,12 @@ public class User implements Serializable {
         this.token = token;
     }
 
-    public String getLogoUrl() {
-        return logoUrl;
+    public long getLogoId() {
+        return logoId;
     }
 
-    public void setLogoUrl(String logoUrl) {
-        this.logoUrl = logoUrl;
+    public void setLogoId(long logoId) {
+        this.logoId = logoId;
     }
 
     @Override
@@ -90,7 +92,7 @@ public class User implements Serializable {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", token='" + token + '\'' +
-                ", logoUrl=" + logoUrl +
+                ", logoId=" + logoId +
                 '}';
     }
 }
