@@ -5,8 +5,6 @@ import com.lingohub.restfull.models.User;
 import com.lingohub.restfull.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 

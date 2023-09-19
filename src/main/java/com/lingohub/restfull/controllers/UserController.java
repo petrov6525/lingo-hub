@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @GetMapping("/init")
-    public ResponseEntity<List<User>> init(){
+    public ResponseEntity<List<User>> init() {
         userFactory.run();
 
         return new ResponseEntity<>(userService.findAllUsers(), HttpStatus.OK);
