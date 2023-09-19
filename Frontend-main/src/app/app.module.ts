@@ -6,6 +6,11 @@ import { AppComponent } from './app.component';
 import { ProfileComponent} from "./profile/profile.component";
 import { DictionariesComponent } from './dictionaries/dictionaries.component';
 import { DictionariesListComponent } from './dictionaries-list/dictionaries-list.component';
+import { LoginComponent } from './login/login.component';
+
+//needing for the authorization
+import { FormsModule } from '@angular/forms'; // Import FormsModule
+import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
 
 @NgModule({
   declarations: [
@@ -13,12 +18,16 @@ import { DictionariesListComponent } from './dictionaries-list/dictionaries-list
     ProfileComponent,
     DictionariesComponent,
     DictionariesListComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+
 })
 export class AppModule { }
