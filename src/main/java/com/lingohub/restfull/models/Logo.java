@@ -10,14 +10,27 @@ public class Logo implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private long id;
-    private String url;
+    private String path;
+    private String name;
 
-    public Logo() {
+    public Logo(long id, String path, String name) {
+        this.id = id;
+        this.path = path;
+        this.name = name;
     }
 
-    public Logo(long id, String url) {
-        this.id = id;
-        this.url = url;
+    public Logo() {
+
+    }
+
+    @Override
+    public String
+    toString() {
+        return "Logo{" +
+                "id=" + id +
+                ", path='" + path + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 
     public long getId() {
@@ -28,19 +41,19 @@ public class Logo implements Serializable {
         this.id = id;
     }
 
-    public String getUrl() {
-        return url;
+    public String getPath() {
+        return path;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setPath(String path) {
+        this.path = path;
     }
 
-    @Override
-    public String toString() {
-        return "Image{" +
-                "id=" + id +
-                ", url='" + url + '\'' +
-                '}';
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
