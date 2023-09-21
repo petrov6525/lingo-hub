@@ -7,7 +7,7 @@
 <div class="lingo_logo_div" *ngIf="!isRootRoute()">
   <img class="logo_img" src="assets/images/logo.png" alt="My Image">
   <h1 class="lingohub">LingoHub</h1>
-  <img class="profile_top_img" src="assets/images/profile_img.png" (click)="redirectToProfile('your-username')">
+  <img class="profile_top_img" src="assets/images/profile_img.png" (click)="redirectToProfile(currentUser?.name || '')">
 </div>
 <div class="side_menu" *ngIf="!isRootRoute()">
   <a class="menu_a" routerLinkActive="active" routerLink="/translator">Translator</a>

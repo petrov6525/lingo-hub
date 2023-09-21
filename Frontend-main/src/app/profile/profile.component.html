@@ -3,8 +3,8 @@
   <div class="profile_top_container">
     <img id="profile_img" src="assets/images/profile_img.png" alt="">
     <div class="profile_top_information">
-      <h1 id="username">Alibaba Ali</h1>
-      <p id="gmail">username@gmail.com</p>
+      <h1 id="name">{{ currentUser?.name }} <button class="logout_btn" (click)="logout()">Logout</button></h1>
+      <p id="gmail">{{ currentUser?.email }}</p>
       <input id="upload_img" type="file" (change)="handleImageUpload($event)" style="display: none">
       <div class="upload_container">
         <label class="upload_img_label" for="upload_img">{{ uploadLabel }}</label>
@@ -15,21 +15,17 @@
   <div class="profile_bottom_info">
     <div class="profile_info">
       <h1>Username</h1>
-      <input type="text" value="Alibaba Ali">
+      <input type="text" value="{{ currentUser?.name }}">
     </div>
     <div class="profile_info">
       <h1>Email</h1>
-      <input type="text" value="username@gmail.com">
+      <input type="text" value="{{ currentUser?.email }}">
     </div>
     <div class="profile_info">
       <h1>Password</h1>
-      <input type="password" value="Alibaba Ali">
+      <input type="password" value="{{ currentUser?.password }}">
     </div>
     <button class="btn_profile_save_changes">Save Changes</button>
   </div>
 </div>
-<script>
-  let element = document.querySelector(".body1"); // Get the first element with the class "body1"
-  element.style.backgroundImage = 'url("http://localhost:4200/assets/images/profile_background.png")'; // Set the new background image URL
-</script>
 </body>
