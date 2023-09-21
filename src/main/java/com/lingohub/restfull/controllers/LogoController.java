@@ -46,8 +46,7 @@ public class LogoController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity<?> downloadLogoByName (@PathVariable("name")String name, HttpServletRequest request) throws IOException {
-        if (authService.checkAuth(request)) {
+    public ResponseEntity<?> downloadLogoByName (@PathVariable("name")String name) throws IOException {
             try {
                 byte[] logoBytes = logoService.downloadLogo(name);
 
@@ -57,7 +56,5 @@ public class LogoController {
             } catch (Exception exception) {
                 return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
             }
-        }
-        return authService.createUnauthorizedResponse();
     }
 }
