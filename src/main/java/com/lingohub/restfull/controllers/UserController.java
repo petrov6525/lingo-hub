@@ -74,4 +74,15 @@ public class UserController {
         return authService.createUnauthorizedResponse();
     }
 
+    @PostMapping("/update-logo")
+    public ResponseEntity<?> updateLogo(@RequestParam("userId")int userId,
+                                        @RequestParam("logoId")long logoId,
+                                        HttpServletRequest request) {
+        if (authService.checkAuth(request)) {
+            Object object = userService.updateLogo(userId, logoId);
+            return userService.createResponseByUser(object);
+        }
+        return authService.createUnauthorizedResponse();
+    }
+
 }
