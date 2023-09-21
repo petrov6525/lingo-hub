@@ -4,6 +4,8 @@ import com.lingohub.restfull.exception.UserNotFoundException;
 import com.lingohub.restfull.models.User;
 import com.lingohub.restfull.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,4 +45,21 @@ public class UserService {
     }
 
 
+    public Object updateLogo(int userId, long logoId) {
+        try {
+            return userRepository.findById(userId);
+        }
+        catch (Exception ex) {
+            return ex.getMessage();
+        }
+    }
+
+    public ResponseEntity<?> createResponseByUser(Object object) {
+
+
+        if (object.getClass() == new User()) {
+            return new ResponseEntity<>("Server Error", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(object, HttpStatus.OK);
+    }
 }
