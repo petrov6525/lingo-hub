@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import {User} from "./models/user.interface";
+import { User } from './models/user.interface';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -15,36 +15,43 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(email: string, password: string): Observable<boolean> {
-    // Send a GET request to your user data API
-    return this.http.get<User[]>('http://localhost:8081/users/all').pipe(
-      map((users) => {
-        // Check if the provided email and password match any user in the response
-        const matchedUser = users.find(
-          (user) => user.email === email && user.password === password
-        );
+    // Set up the headers with the authentication token
+    const headers = new HttpHeaders({
+      'auth-token': 'sirh545dff4e5f4ffkfjhe', // Replace with your actual token
+    });
 
-        if (matchedUser) {
-          this.isAuthenticated = true;
-          this.currentUser = matchedUser;
+    // Send a GET request to your user data API with the headers
+    return this.http
+      .get<User[]>('http://localhost:8081/users/all', { headers })
+      .pipe(
+        map((users) => {
+          // Check if the provided email and password match any user in the response
+          const matchedUser = users.find(
+            (user) => user.email === email && user.password === password
+          );
 
-          // Store user data in local storage
-          localStorage.setItem('currentUser', JSON.stringify(matchedUser));
+          if (matchedUser) {
+            this.isAuthenticated = true;
+            this.currentUser = matchedUser;
 
-          // Redirect to the /dictionaries route
-          this.router.navigate(['/dictionaries']);
+            // Store user data in local storage
+            localStorage.setItem('currentUser', JSON.stringify(matchedUser));
 
-          return true; // Login successful
-        } else {
-          this.isAuthenticated = false;
-          this.currentUser = null;
-          return false; // Login failed
-        }
-      }),
-      catchError((error) => {
-        console.error('An error occurred:', error);
-        return of(false); // Handle the error and return false for login failure
-      })
-    );
+            // Redirect to the /dictionaries route
+            this.router.navigate(['/dictionaries']);
+
+            return true; // Login successful
+          } else {
+            this.isAuthenticated = false;
+            this.currentUser = null;
+            return false; // Login failed
+          }
+        }),
+        catchError((error) => {
+          console.error('An error occurred:', error);
+          return of(false); // Handle the error and return false for login failure
+        })
+      );
   }
 
   logout(): void {
@@ -53,11 +60,15 @@ export class AuthService {
 
     // Clear user data from local storage
     localStorage.removeItem('currentUser');
+
+    // Redirect to the /login route
+    this.router.navigate(['/login']);
   }
 
   isAuthenticatedUser(): boolean {
     return this.isAuthenticated;
   }
+
   getCurrentUser(): User | null {
     // Retrieve user data from local storage
     const userData = localStorage.getItem('currentUser');
