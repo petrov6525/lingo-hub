@@ -119,6 +119,7 @@ export class ProfileComponent implements OnInit {
             (updateResponse) => {
               // Handle successful user logo update
               console.log('User logo updated successfully:', updateResponse);
+              window.location.reload();
             },
             (updateError) => {
               // Handle user logo update error
