@@ -5,10 +5,15 @@
     <div class="profile_top_information">
       <h1 id="name">{{ user?.name }} <button class="logout_btn" (click)="logout()">Logout</button></h1>
       <p id="gmail">{{ user?.email }}</p>
-      <input id="upload_img" type="file" (change)="handleImageUpload($event)" style="display: none">
+      <input
+        id="upload_img"
+        type="file"
+        (change)="handleImageUpload($event)"
+        style="display: none"
+      />
       <div class="upload_container">
         <label class="upload_img_label" for="upload_img">{{ uploadLabel }}</label>
-        <p>{{ formatImageName(uploadedImageName) }}</p>
+        <p>{{ uploadedImageName }}</p>
       </div>
     </div>
   </div>
@@ -25,7 +30,7 @@
       <h1>Password</h1>
       <input type="password" value="{{ user?.password }}">
     </div>
-    <button class="btn_profile_save_changes">Save Changes</button>
+    <button class="btn_profile_save_changes" (click)="saveChanges()">Save Changes</button>
   </div>
 </div>
 </body>

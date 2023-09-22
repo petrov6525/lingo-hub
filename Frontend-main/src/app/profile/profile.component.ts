@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import {UploadService} from "../upload.service";
 
 @Component({
   selector: 'app-profile',
@@ -10,14 +11,15 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   username: string = '';
-  user: any; // Define a user object to hold user data
-  uploadLabel = 'Upload your img'; // Initial label text
-  uploadedImageName = ''; // To display the uploaded image name
+  user: any;
+  uploadLabel = 'Upload your img';
+  uploadedImageName: string = '';
 
   constructor(
       private route: ActivatedRoute,
       private authService: AuthService,
-      private router: Router
+      private router: Router,
+      private uploadService: UploadService
   ) {}
 
   ngOnInit(): void {
@@ -35,10 +37,41 @@ export class ProfileComponent implements OnInit {
     // this.user.name, this.user.email, etc.
   }
 
-  // Define the handleImageUpload function to handle file selection
   handleImageUpload(event: any) {
-    const files = event.target.files;
-    this.handleFiles(files);
+    const fileInput = event.target;
+
+    // Check if a file is selected
+    if (fileInput.files && fileInput.files.length > 0) {
+      // Get the selected file name
+      const fileName = fileInput.files[0].name;
+
+      // Extract the file extension
+      const fileExtension = fileName.split('.').pop() || '';
+
+      // Truncate the file name to the first 5 characters
+      const truncatedFileName = fileName.slice(0, 5);
+
+      // Update the uploadedImageName property to display the truncated file name
+      this.uploadedImageName = `${truncatedFileName}..${fileExtension}`;
+    } else {
+      // No file selected, reset the uploadedImageName
+      this.uploadedImageName = '';
+    }
+  }
+
+  formatImageName(name: string) {
+    const maxLength = 5; // Maximum characters to display before ellipsis
+    const fileTypeIndex = name.lastIndexOf('.');
+
+    // Check if the file name length is less than or equal to maxLength
+    if (name.length <= maxLength + 4) {
+      return name; // No need for ellipsis
+    }
+
+    const prefix = name.substring(0, maxLength); // Get the first maxLength characters
+    const fileType = name.substring(fileTypeIndex); // Get the file type (e.g., .jpg)
+
+    return `${prefix}...${fileType}`;
   }
 
   private handleFiles(files: FileList | null) {
@@ -56,13 +89,6 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  formatImageName(name: string) {
-    if (name.length > 5) {
-      return name.substring(0, 5) + '...' + name.substring(name.length - 4);
-    }
-    return name;
-  }
-
   logout(): void {
     // Call the logout method from your authentication service
     this.authService.logout();
@@ -72,9 +98,33 @@ export class ProfileComponent implements OnInit {
   }
 
   // Add a function to save changes to the user's profile
-  saveChanges() {
+  saveChanges(): void {
     // Implement logic to save changes to the user's profile
     // You can use this.user to access the user's data
     // Update user's name, email, password, etc., as needed
+
+    // Handle image upload
+    const fileInput = document.getElementById('upload_img') as HTMLInputElement;
+
+    if (fileInput && fileInput.files && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+
+      this.uploadService.uploadLogo(file).subscribe(
+        (response) => {
+          // Handle successful upload
+          console.log('Logo uploaded successfully:', response);
+
+          // Continue with saving changes if needed
+        },
+        (error) => {
+          // Handle upload error
+          console.error('Error uploading logo:', error);
+
+          // Continue with saving changes if needed
+        }
+      );
+    } else {
+      // Continue with saving changes without uploading a file
+    }
   }
 }
