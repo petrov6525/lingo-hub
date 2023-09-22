@@ -3,8 +3,8 @@
   <div class="profile_top_container">
     <img id="profile_img" src="assets/images/profile_img.png" alt="">
     <div class="profile_top_information">
-      <h1 id="name">{{ currentUser?.name }} <button class="logout_btn" (click)="logout()">Logout</button></h1>
-      <p id="gmail">{{ currentUser?.email }}</p>
+      <h1 id="name">{{ user?.name }} <button class="logout_btn" (click)="logout()">Logout</button></h1>
+      <p id="gmail">{{ user?.email }}</p>
       <input id="upload_img" type="file" (change)="handleImageUpload($event)" style="display: none">
       <div class="upload_container">
         <label class="upload_img_label" for="upload_img">{{ uploadLabel }}</label>
@@ -15,15 +15,15 @@
   <div class="profile_bottom_info">
     <div class="profile_info">
       <h1>Username</h1>
-      <input type="text" value="{{ currentUser?.name }}">
+      <input type="text" value="{{ user?.name }}">
     </div>
     <div class="profile_info">
       <h1>Email</h1>
-      <input type="text" value="{{ currentUser?.email }}">
+      <input type="text" value="{{ user?.email }}">
     </div>
     <div class="profile_info">
       <h1>Password</h1>
-      <input type="password" value="{{ currentUser?.password }}">
+      <input type="password" value="{{ user?.password }}">
     </div>
     <button class="btn_profile_save_changes">Save Changes</button>
   </div>

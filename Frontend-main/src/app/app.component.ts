@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from "./auth.service";
-import { User } from "./models/user.interface"; // Make sure to import the User interface if you haven't already
+import { User } from "./models/user.interface";
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,11 @@ import { User } from "./models/user.interface"; // Make sure to import the User 
 export class AppComponent implements OnInit {
   currentUser: User | null = null; // Initialize currentUser to null
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef // Inject ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
     // Fetch user data from local storage
@@ -22,8 +26,11 @@ export class AppComponent implements OnInit {
     return this.router.url === '/';
   }
 
-  redirectToProfile(username: string) {
-    const sanitizedUsername = username.replace(/ /g, '_');
-    this.router.navigate(['/profile', sanitizedUsername]);
+  redirectToProfile(): void {
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser) {
+      const sanitizedUsername = currentUser.name.replace(/ /g, '_');
+      this.router.navigate(['/profile', sanitizedUsername]);
+    }
   }
 }

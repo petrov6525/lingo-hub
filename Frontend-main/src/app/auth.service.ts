@@ -1,18 +1,25 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { User } from './models/user.interface';
 import { Router } from '@angular/router';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private isAuthenticated = false;
-  private currentUser: User | null = null;
+  currentUser: User | null = null; // Use currentUser as a property
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+    // Check if there's a user in local storage during service initialization
+    const storedUser = localStorage.getItem('currentUser');
+    if (storedUser) {
+      this.isAuthenticated = true;
+      this.currentUser = JSON.parse(storedUser);
+    }
+  }
 
   login(email: string, password: string): Observable<boolean> {
     // Set up the headers with the authentication token

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -12,12 +13,11 @@ export class ProfileComponent implements OnInit {
   user: any; // Define a user object to hold user data
   uploadLabel = 'Upload your img'; // Initial label text
   uploadedImageName = ''; // To display the uploaded image name
-  currentUser: any; // Define currentUser here
 
   constructor(
-    private route: ActivatedRoute,
-    private authService: AuthService,
-    private router: Router
+      private route: ActivatedRoute,
+      private authService: AuthService,
+      private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -30,10 +30,9 @@ export class ProfileComponent implements OnInit {
   loadUserProfile(): void {
     // Fetch user data from the AuthService or local storage
     this.user = this.authService.getCurrentUser();
-    this.currentUser = this.user; // Assign user data to currentUser
 
     // You can access user data fields like this:
-    // this.currentUser.name, this.currentUser.email, etc.
+    // this.user.name, this.user.email, etc.
   }
 
   // Define the handleImageUpload function to handle file selection
@@ -63,6 +62,7 @@ export class ProfileComponent implements OnInit {
     }
     return name;
   }
+
   logout(): void {
     // Call the logout method from your authentication service
     this.authService.logout();
@@ -70,10 +70,11 @@ export class ProfileComponent implements OnInit {
     // Redirect the user to the login page
     this.router.navigate(['/login']);
   }
+
   // Add a function to save changes to the user's profile
   saveChanges() {
     // Implement logic to save changes to the user's profile
-    // You can use this.currentUser to access the user's data
+    // You can use this.user to access the user's data
     // Update user's name, email, password, etc., as needed
   }
 }

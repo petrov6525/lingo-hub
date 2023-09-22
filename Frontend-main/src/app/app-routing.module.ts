@@ -4,7 +4,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { DictionariesComponent } from "./dictionaries/dictionaries.component";
 import { DictionariesListComponent } from './dictionaries-list/dictionaries-list.component';
 import { LoginComponent } from './login/login.component';
-import { AuthGuard } from "./auth.guard"; // Import the AuthGuard from the correct path
+import { AuthGuard } from "./auth.guard"; // Import the AuthGuard
 
 const routes: Routes = [
   // Other routes...
