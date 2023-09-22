@@ -36,7 +36,7 @@ public class LogoService {
         try {
             Files.createDirectories(FOLDER_PATH);
             String uuid = UUID.randomUUID().toString();
-            String newFileName = uuid+file.getOriginalFilename();
+            String newFileName = uuid + file.getOriginalFilename();
             Files.copy(file.getInputStream(), this.FOLDER_PATH.resolve(Objects.requireNonNull(newFileName)));
 
             String path = FOLDER_PATH.resolve(newFileName).toString();
@@ -53,7 +53,7 @@ public class LogoService {
     }
 
     public byte[] downloadLogo(String name) throws IOException {
-        Logo logo = logoRepository.findByName(name).orElseThrow(()-> new LogoNotFoundException("Logo not found"));
+        Logo logo = logoRepository.findByName(name).orElseThrow(() -> new LogoNotFoundException("Logo not found"));
 
         return Files.readAllBytes(new File(logo.getPath()).toPath());
     }
@@ -62,20 +62,17 @@ public class LogoService {
         return logoRepository.findAll();
     }
 
-    public Object deleteLogoIfExists(User user) {
-        if(user.getLogo() != null) {
-            return deleteLogoByPath(user.getLogo().getPath());
+    public void deleteLogoIfExists(User user) throws IOException {
+        if (user.getLogo() != null) {
+            deleteLogoByPath(user.getLogo().getPath());
+            Long logoId = user.getLogo().getId();
+            user.setLogo(null);
+            logoRepository.deleteById(logoId);
         }
-        return "User hasn't old logo";
     }
 
-    private Object deleteLogoByPath(String path) {
-        try {
-            Path filePath = Paths.get(path);
-            Files.deleteIfExists(filePath);
-            return "Old logo deleted";
-        } catch (Exception exception) {
-            return exception.getMessage();
-        }
+    private void deleteLogoByPath(String path) throws IOException {
+        Path filePath = Paths.get(path);
+        Files.deleteIfExists(filePath);
     }
 }
