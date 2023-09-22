@@ -62,13 +62,20 @@ public class LogoService {
         return logoRepository.findAll();
     }
 
-    public void deleteLogoIfExists(User user) {
+    public Object deleteLogoIfExists(User user) {
         if(user.getLogo() != null) {
-            deleteLogoById(user.getLogo().getId());
+            return deleteLogoByPath(user.getLogo().getPath());
         }
+        return "User hasn't old logo";
     }
 
-    private void deleteLogoById(long id) {
-
+    private Object deleteLogoByPath(String path) {
+        try {
+            Path filePath = Paths.get(path);
+            Files.deleteIfExists(filePath);
+            return "Old logo deleted";
+        } catch (Exception exception) {
+            return exception.getMessage();
+        }
     }
 }
