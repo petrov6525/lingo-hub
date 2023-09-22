@@ -14,7 +14,7 @@ public class Dictionary implements Serializable {
     private String originCode;
     private String translateCode;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 

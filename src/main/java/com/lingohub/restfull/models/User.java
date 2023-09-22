@@ -4,6 +4,8 @@ package com.lingohub.restfull.models;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User implements Serializable {
@@ -23,6 +25,9 @@ public class User implements Serializable {
     @OneToOne
     @JoinColumn(name = "logo_id", referencedColumnName = "id")
     private Logo logo;
+
+    @OneToMany(mappedBy = "user")
+    private List<Dictionary> dictionaries = new ArrayList<>();
 
     public User() {
     }
