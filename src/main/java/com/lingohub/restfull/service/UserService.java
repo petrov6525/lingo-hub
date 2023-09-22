@@ -51,6 +51,7 @@ public class UserService {
     public Object updateLogo(int userId, long logoId) {
         try {
             User user = findUserById(userId);
+            logoService.deleteLogoIfExists(user);
             Logo newLogo = logoService.getLogoById(logoId);
             user.setLogo(newLogo);
 

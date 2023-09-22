@@ -2,6 +2,7 @@ package com.lingohub.restfull.service;
 
 import com.lingohub.restfull.exception.LogoNotFoundException;
 import com.lingohub.restfull.models.Logo;
+import com.lingohub.restfull.models.User;
 import com.lingohub.restfull.repo.LogoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,5 +60,15 @@ public class LogoService {
 
     public List<Logo> findAllLogo() {
         return logoRepository.findAll();
+    }
+
+    public void deleteLogoIfExists(User user) {
+        if(user.getLogo() != null) {
+            deleteLogoById(user.getLogo().getId());
+        }
+    }
+
+    private void deleteLogoById(long id) {
+
     }
 }
