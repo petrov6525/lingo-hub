@@ -57,4 +57,13 @@ public class LogoController {
                 return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
             }
     }
+
+    @GetMapping("/all")
+    public ResponseEntity<?> findAllLogo(HttpServletRequest request) {
+        if (authService.checkAuth(request)) {
+            return new ResponseEntity<>(logoService.findAllLogo(), HttpStatus.OK);
+        }
+        return authService.createUnauthorizedResponse();
+    }
+
 }
