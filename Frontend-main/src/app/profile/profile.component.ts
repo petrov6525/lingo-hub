@@ -99,10 +99,6 @@ export class ProfileComponent implements OnInit {
 
   // Add a function to save changes to the user's profile
   saveChanges(): void {
-    // Implement logic to save changes to the user's profile
-    // You can use this.user to access the user's data
-    // Update user's name, email, password, etc., as needed
-
     // Handle image upload
     const fileInput = document.getElementById('upload_img') as HTMLInputElement;
 
@@ -114,17 +110,30 @@ export class ProfileComponent implements OnInit {
           // Handle successful upload
           console.log('Logo uploaded successfully:', response);
 
-          // Continue with saving changes if needed
+          // Assuming you have user ID available, update the user's logo ID
+          const userId = this.user.id; // Replace with your user ID logic
+
+          // Send a request to update the user's logo ID in the backend
+          console.log(response.id);
+          this.uploadService.updateUserLogo(userId, response.id).subscribe(
+            (updateResponse) => {
+              // Handle successful user logo update
+              console.log('User logo updated successfully:', updateResponse);
+            },
+            (updateError) => {
+              // Handle user logo update error
+              console.error('Error updating user logo:', updateError);
+            }
+          );
         },
         (error) => {
           // Handle upload error
           console.error('Error uploading logo:', error);
-
-          // Continue with saving changes if needed
         }
       );
     } else {
-      // Continue with saving changes without uploading a file
+      // Handle the case where no file is selected
+      console.warn('No file selected for upload');
     }
   }
 }
