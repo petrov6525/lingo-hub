@@ -2,12 +2,14 @@ package com.lingohub.restfull.factory;
 
 import com.lingohub.restfull.models.User;
 import com.lingohub.restfull.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserFactory {
     private final UserService userService;
 
+    @Autowired
     public UserFactory(UserService userService) {
         this.userService = userService;
     }

@@ -3,6 +3,8 @@ package com.lingohub.restfull.models;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Dictionary implements Serializable {
@@ -11,22 +13,33 @@ public class Dictionary implements Serializable {
     @Column(nullable = false, updatable = false)
     private long id;
     private String name;
-    private String originCode;
-    private String translateCode;
+    @ManyToOne
+    @JoinColumn(name = "origin_code_id", referencedColumnName = "id")
+    private LanguageCode originCode;
+    @ManyToOne
+    @JoinColumn(name = "translate_code_id", referencedColumnName = "id")
+    private LanguageCode translateCode;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
+    @OneToMany(mappedBy = "dictionary")
+    private List<Word> words = new ArrayList<>();
+
+
     public Dictionary() {
     }
 
-    public Dictionary(long id, String name, String originCode, String translateCode, User user) {
-        this.id = id;
-        this.name = name;
-        this.originCode = originCode;
-        this.translateCode = translateCode;
-        this.user = user;
+    @Override
+    public String toString() {
+        return "Dictionary{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", originCode=" + originCode +
+                ", translateCode=" + translateCode +
+                ", user=" + user +
+                '}';
     }
 
     public long getId() {
@@ -45,19 +58,19 @@ public class Dictionary implements Serializable {
         this.name = name;
     }
 
-    public String getOriginCode() {
+    public LanguageCode getOriginCode() {
         return originCode;
     }
 
-    public void setOriginCode(String originCode) {
+    public void setOriginCode(LanguageCode originCode) {
         this.originCode = originCode;
     }
 
-    public String getTranslateCode() {
+    public LanguageCode getTranslateCode() {
         return translateCode;
     }
 
-    public void setTranslateCode(String translateCode) {
+    public void setTranslateCode(LanguageCode translateCode) {
         this.translateCode = translateCode;
     }
 
@@ -69,14 +82,11 @@ public class Dictionary implements Serializable {
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "Dictionary{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", originCode='" + originCode + '\'' +
-                ", translateCode='" + translateCode + '\'' +
-                ", user=" + user +
-                '}';
+    public Dictionary(long id, String name, LanguageCode originCode, LanguageCode translateCode, User user) {
+        this.id = id;
+        this.name = name;
+        this.originCode = originCode;
+        this.translateCode = translateCode;
+        this.user = user;
     }
 }

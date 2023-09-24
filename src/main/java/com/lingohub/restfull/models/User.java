@@ -41,6 +41,19 @@ public class User implements Serializable {
         this.logo = logo;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", token='" + token + '\'' +
+                ", logo=" + logo +
+                ", dictionaries=" + dictionaries +
+                '}';
+    }
+
     public int getId() {
         return id;
     }
