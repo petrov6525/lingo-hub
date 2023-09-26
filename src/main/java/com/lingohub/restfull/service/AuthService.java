@@ -2,11 +2,10 @@ package com.lingohub.restfull.service;
 
 import com.lingohub.restfull.models.User;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class AuthService {
@@ -14,6 +13,7 @@ public class AuthService {
     private final String TOKEN = "sirh545dff4e5f4ffkfjhe";
     private final UserService userService;
 
+    @Autowired
     public AuthService(UserService userService) {
         this.userService = userService;
     }
