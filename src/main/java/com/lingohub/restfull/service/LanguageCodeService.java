@@ -30,4 +30,8 @@ public class LanguageCodeService {
         return languageCodeRepository.findById(id)
                 .orElseThrow(()->new LanguageCodeNotFoundException("Language code by id "+id+" not found"));
     }
+
+    public LanguageCode findByCode(String code) {
+        return languageCodeRepository.findByCode(code);
+    }
 }

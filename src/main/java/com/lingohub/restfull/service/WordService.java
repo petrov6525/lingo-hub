@@ -9,13 +9,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class WordService {
     private final WordRepository wordRepository;
+    private final DictionaryService dictionaryService;
+
 
     @Autowired
-    public WordService(WordRepository wordRepository) {
+    public WordService(WordRepository wordRepository, DictionaryService dictionaryService) {
         this.wordRepository = wordRepository;
+        this.dictionaryService = dictionaryService;
     }
 
-    public Object translate(Word word) {
-        return TranslateHelper.translate(word);
+    public Word translate(Word word) {
+        String translate = TranslateHelper.translate(word);
+        word.setTranslate(translate);
+
+        return word;
+    }
+
+    public Word addToDictionary(Word word) {
+        word.setDictionary(dictionaryService.findById(word.getDictionary().getId()));
+        return wordRepository.save(word);
     }
 }
