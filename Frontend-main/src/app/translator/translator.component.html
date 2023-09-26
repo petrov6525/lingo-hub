@@ -1,0 +1,18 @@
+<body>
+<div class="translator_container">
+    <div class="txt_container container1" [style.transform]="container1Transform">
+        <h1>English ↓</h1>
+        <textarea [(ngModel)]="englishText" (input)="translateText('english')"></textarea>
+    </div>
+    <img
+            class="switch_btn"
+            src="assets/images/image%208.png"
+            alt=""
+            (click)="toggleContainers()"
+    />
+    <div class="txt_container container2" [style.transform]="container2Transform">
+        <h1>Ukraine ↓</h1>
+        <textarea [(ngModel)]="ukraineText" (input)="translateText('ukraine')"></textarea>
+    </div>
+</div>
+</body>
