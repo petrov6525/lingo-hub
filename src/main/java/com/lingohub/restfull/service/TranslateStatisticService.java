@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TranslateStatisticService {
     private final TranslateStatisticRepository translateStatisticRepository;
@@ -50,5 +52,9 @@ public class TranslateStatisticService {
             translateStatistic.setCount(translateStatistic.getCount()+1);
             translateStatisticRepository.save(translateStatistic);
         }
+    }
+
+    public List<TranslateStatistic> findAllByUserId(int userId) {
+        return translateStatisticRepository.findAllByUserIdOrderByCountDesc(userId);
     }
 }
