@@ -82,8 +82,7 @@ public class Dictionary implements Serializable {
         this.user = user;
     }
 
-    public Dictionary(long id, String name, LanguageCode originCode, LanguageCode translateCode, User user) {
-        this.id = id;
+    public Dictionary( String name, LanguageCode originCode, LanguageCode translateCode, User user) {
         this.name = name;
         this.originCode = originCode;
         this.translateCode = translateCode;

@@ -23,14 +23,10 @@ public class DictionaryService {
         this.languageCodeService = languageCodeService;
     }
 
-    public Object create(Dictionary dictionary) {
-        try {
+    public Dictionary create(Dictionary dictionary) {
             dictionary.setOriginCode(languageCodeService.findById(dictionary.getOriginCode().getId()));
             dictionary.setTranslateCode(languageCodeService.findById(dictionary.getTranslateCode().getId()));
             return dictionaryRepository.save(dictionary);
-        } catch (Exception ex) {
-            return ex.getMessage();
-        }
     }
 
     public Dictionary findById(Long id)  {
