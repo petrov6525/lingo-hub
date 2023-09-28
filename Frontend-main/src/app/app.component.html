@@ -53,7 +53,7 @@
   </a>
   <button class="register_btn" type="submit">Register</button>
 </form>
-<div class="lingo_logo_bottom" *ngIf="isLoginPage() || isRegisterPage">
+<div class="lingo_logo_bottom" *ngIf="isLoginPage() || isRegisterPage() && !isRootRoute()">
   <img class="logo_img" src="assets/images/logo.png" alt="My Image">
   <h1>LingoHub</h1>
 </div>

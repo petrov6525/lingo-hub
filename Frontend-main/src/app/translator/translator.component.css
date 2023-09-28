@@ -52,3 +52,11 @@ textarea {
     cursor: pointer;
     z-index: 1;
 }
+.combobox{
+  width: 12rem;
+  font-size: 22px;
+  margin: 0.5rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}

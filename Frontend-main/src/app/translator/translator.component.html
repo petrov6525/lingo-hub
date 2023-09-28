@@ -1,18 +1,19 @@
 <body>
 <div class="translator_container">
-    <div class="txt_container container1" [style.transform]="container1Transform">
-        <h1>English ↓</h1>
-        <textarea [(ngModel)]="englishText" (input)="translateText('english')"></textarea>
-    </div>
-    <img
-            class="switch_btn"
-            src="assets/images/image%208.png"
-            alt=""
-            (click)="toggleContainers()"
-    />
-    <div class="txt_container container2" [style.transform]="container2Transform">
-        <h1>Ukraine ↓</h1>
-        <textarea [(ngModel)]="ukraineText" (input)="translateText('ukraine')"></textarea>
-    </div>
+  <div class="txt_container container1" [style.transform]="container1Transform">
+    <select class="combobox" [(ngModel)]="selectedLanguage1">
+      <option value="" disabled selected>Select language</option>
+      <option *ngFor="let language of languages" [value]="language.code" [disabled]="selectedLanguage2 === language.code">{{ language.title }}</option>
+    </select>
+    <textarea [(ngModel)]="englishText" [disabled]="!isEditable(1)" (ngModelChange)="onTextChange(englishText, selectedLanguage1, selectedLanguage2, 1)"></textarea>
+  </div>
+  <img class="switch_btn" src="assets/images/image%208.png" alt="" (click)="toggleContainers()" />
+  <div class="txt_container container2" [style.transform]="container2Transform">
+    <select class="combobox" [(ngModel)]="selectedLanguage2">
+      <option value="" disabled selected>Select language</option>
+      <option *ngFor="let language of languages" [value]="language.code" [disabled]="selectedLanguage1 === language.code">{{ language.title }}</option>
+    </select>
+    <textarea [(ngModel)]="translationResult" [disabled]="!isEditable(2)" (ngModelChange)="onTextChange(translationResult, selectedLanguage2, selectedLanguage1, 2)"></textarea>
+  </div>
 </div>
 </body>
