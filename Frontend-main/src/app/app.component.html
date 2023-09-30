@@ -36,18 +36,18 @@
   </a>
   <button class="login_btn" type="submit">Login</button>
 </form>
-<form (ngSubmit)="login()" *ngIf="isRegisterPage()" class="login_form">
+<form (ngSubmit)="register()" *ngIf="isRegisterPage()" class="login_form">
+  <div class="input_container">
+    <label class="input_login" for="email">Username:</label>
+    <input type="email" id="username" [(ngModel)]="username" name="username" required>
+  </div>
   <div class="input_container">
     <label class="input_login" for="email">Email:</label>
     <input type="email" id="email" [(ngModel)]="email" name="email" required>
   </div>
   <div class="input_container">
-    <label class="input_login" for="password">Password:</label>
+    <label class="input_login" for="password">New Password:</label>
     <input type="password" id="password" [(ngModel)]="password" name="password" required>
-  </div>
-  <div class="input_container">
-    <label class="input_login" for="password">Confirm Password:</label>
-    <input type="password" id="conf_password" [(ngModel)]="password" name="password" required>
   </div>
   <a class="change_between_l_r" routerLinkActive="active" routerLink="/login">Have an account? Login
   </a>

@@ -42,7 +42,7 @@
     font-size: 32px;
     font-weight: 800;
 }
-#email, #password, #conf_password{
+#email, #password, #conf_password, #username{
     background-color: rgba(217, 217, 217, 0.8);
     border: none;
     border-radius: 5px;
