@@ -4,18 +4,57 @@
   <a routerLink="/dictionaries">Dictionaries</a>
 </nav>
 
-<div class="lingo_logo_div" *ngIf="!isRootRoute()">
+<div class="lingo_logo_div" *ngIf="!isRootRoute() && !isLoginPage() && !isRegisterPage()">
   <img class="logo_img" src="assets/images/logo.png" alt="My Image">
   <h1 class="lingohub">LingoHub</h1>
   <img class="profile_top_img" src="assets/images/profile_img.png" (click)="redirectToProfile()">
 </div>
-<div class="side_menu" *ngIf="!isRootRoute()">
+<div class="side_menu" *ngIf="!isRootRoute() && !isLoginPage() && !isRegisterPage()">
   <a class="menu_a" routerLinkActive="active" routerLink="/translator">Translator</a>
   <a class="menu_a" routerLinkActive="active" routerLink="/dictionaries">Dictionaries</a>
   <a class="menu_a" routerLinkActive="active" routerLink="/quiz">Quiz</a>
 </div>
-<div class="content-container">
+<div class="content-container" *ngIf="!isLoginPage() && !isRegisterPage()" >
   <router-outlet></router-outlet>
 </div>
-
+<div class="lingo_menu_div" *ngIf="!isRootRoute() && isLoginPage() || isRegisterPage()">
+  <a class="menu_b" routerLinkActive="active" routerLink="/translator">About Us</a>
+  <a class="menu_b" routerLinkActive="active" routerLink="/dictionaries">F.A.Q.S</a>
+  <a class="menu_b" routerLinkActive="active" routerLink="/quiz">Quick Test</a>
+</div>
+<form (ngSubmit)="login()" *ngIf="isLoginPage()" class="login_form">
+  <div class="input_container">
+    <label class="input_login" for="email">Email:</label>
+    <input type="email" id="email" [(ngModel)]="email" name="email" required>
+  </div>
+  <div class="input_container">
+    <label class="input_login" for="password">Password:</label>
+    <input type="password" id="password" [(ngModel)]="password" name="password" required>
+  </div>
+  <a class="change_between_l_r" routerLinkActive="active" routerLink="/register">
+    Don't have account? Register
+  </a>
+  <button class="login_btn" type="submit">Login</button>
+</form>
+<form (ngSubmit)="register()" *ngIf="isRegisterPage()" class="login_form">
+  <div class="input_container">
+    <label class="input_login" for="email">Username:</label>
+    <input type="email" id="username" [(ngModel)]="username" name="username" required>
+  </div>
+  <div class="input_container">
+    <label class="input_login" for="email">Email:</label>
+    <input type="email" id="email" [(ngModel)]="email" name="email" required>
+  </div>
+  <div class="input_container">
+    <label class="input_login" for="password">New Password:</label>
+    <input type="password" id="password" [(ngModel)]="password" name="password" required>
+  </div>
+  <a class="change_between_l_r" routerLinkActive="active" routerLink="/login">Have an account? Login
+  </a>
+  <button class="register_btn" type="submit">Register</button>
+</form>
+<div class="lingo_logo_bottom" *ngIf="isLoginPage() || isRegisterPage() && !isRootRoute()">
+  <img class="logo_img" src="assets/images/logo.png" alt="My Image">
+  <h1>LingoHub</h1>
+</div>
 

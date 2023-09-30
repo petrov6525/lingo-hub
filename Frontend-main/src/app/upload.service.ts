@@ -21,4 +21,20 @@ export class UploadService {
 
     return this.http.post(this.apiUrl, formData, { headers });
   }
+
+  // Add a method to update user's logo in the backend
+  updateUserLogo(userId: number, logoId: number): Observable<any> {
+    // Create a FormData object
+    const formData = new FormData();
+    formData.append('userId', userId.toString());
+    formData.append('logoId', logoId.toString());
+
+    // Set the auth-token header
+    const headers = new HttpHeaders({
+      'auth-token': this.authToken,
+    });
+
+    // Make the HTTP POST request with FormData
+    return this.http.post('http://localhost:8081/users/update-logo', formData, { headers });
+  }
 }
