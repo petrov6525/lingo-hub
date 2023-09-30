@@ -41,11 +41,8 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addUser(@RequestBody User user, HttpServletRequest request) {
-        if (authService.checkAuth(request)) {
+    public ResponseEntity<?> addUser(@RequestBody User user) {
             return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
-        }
-        return authService.createUnauthorizedResponse();
     }
 
     @PutMapping("/update")
