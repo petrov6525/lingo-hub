@@ -11,9 +11,8 @@ html{
  background-color: #232A31;
   background-repeat: no-repeat;
   background-size: cover;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin: 0;
+  padding: 0;
 }
 .lingo_logo_div{
   position: fixed;
@@ -77,9 +76,10 @@ html{
 }
 .content-container {
   position: fixed;
-  top: 20%; 
-  left: 15%; 
-  min-width: 81.35rem; 
-  height: 80%; 
-  overflow: auto; 
+  top: 20%;
+  left: 15%;
+  min-width: 81.35rem;
+  height: 80%;
+  overflow: auto;
+  border: 2px solid black;
 }

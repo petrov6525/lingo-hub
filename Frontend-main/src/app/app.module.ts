@@ -10,7 +10,9 @@ import { LoginComponent } from './login/login.component';
 
 //needing for the authorization
 import { FormsModule } from '@angular/forms'; // Import FormsModule
-import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { HttpClientModule } from '@angular/common/http';
+import { TranslatorComponent } from './translator/translator.component';
+import { RegisterComponent } from './register/register.component'; // Import HttpClientModule
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { HttpClientModule } from '@angular/common/http'; // Import HttpClientMod
     DictionariesComponent,
     DictionariesListComponent,
     LoginComponent,
+    TranslatorComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
