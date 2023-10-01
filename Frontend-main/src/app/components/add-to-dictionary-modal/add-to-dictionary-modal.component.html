@@ -1,0 +1,19 @@
+<div class="add-to-dictionary-modal"
+    *ngIf="isVisible">
+  <div class="modal">
+    <div class="modal-close">
+      <img class="close-img" ngSrc="assets/images/plus.svg" height="24" width="24" alt="plus"
+           (click)="addDictionaryModalHandler()"/>
+      <img class="close-img" ngSrc="assets/images/close.svg" height="24" width="24" alt="close"
+      (click)="closeModalHandler()"/>
+    </div>
+    <div class="dictionaries">
+      <label class="dictionary-label {{checkedDictionaries.indexOf(item.id) !== -1 ? 'checked' : ''}}"  *ngFor="let item of dictionaries">
+        <input class="dictionary-checkbox" type="checkbox" [value]="item.id"
+        (change)="checkedHandler(item.id)"
+        [checked]="checkedDictionaries.indexOf(item.id) !== -1"/>
+        {{item.title}} ({{item.desc}})
+      </label>
+    </div>
+  </div>
+</div>

@@ -1,37 +1,47 @@
 <body>
 <div class="translator_container">
-  <div class="txt_container container1" [style.transform]="container1Transform">
-    <select (click)="selectClickHandler()" class="combobox" [(ngModel)]="originCode">
-      <option value="" disabled selected>Select language</option>
-      <hr/>
-      <optgroup label="recent" *ngIf="recentLanguages.length > 0">
-        <option *ngFor="let recent of recentLanguages"
-                [value]="recent.code"
-                [disabled]="originCode === recent.code">
-          {{recent.title}}
-        </option>
-        <hr/>
-      </optgroup>
-      <option *ngFor="let language of languages" [value]="language.code" [disabled]="translateCode === language.code">{{ language.title }}</option>
-    </select>
-    <textarea [(ngModel)]="originText" [disabled]="!isEditable(1)" (ngModelChange)="onTextChange( 1)"></textarea>
+  <div class="buttons-block">
+    <div>
+      <button class="clear-button" (click)="clearButtonClickHandler()">Clear</button>
+    </div>
+    <div class="add-button-container">
+      <button class="add-button" (click)="addToDictionaryClickHandler()">Add</button>
+    </div>
   </div>
-  <img class="switch_btn" src="assets/images/image%208.png" alt="" (click)="toggleContainers()" />
-  <div class="txt_container container2" [style.transform]="container2Transform">
-    <select (click)="selectClickHandler()" class="combobox" [(ngModel)]="translateCode">
-      <option value="" disabled selected>Select language</option>
-      <hr/>
-      <optgroup label="recent" *ngIf="recentLanguages.length > 0">
-        <option *ngFor="let recent of recentLanguages"
-                [value]="recent.code"
-                [disabled]="originCode === recent.code">
-          {{recent.title}}
-        </option>
+  <div class="translation-block">
+    <div class="txt_container container1" [style.transform]="container1Transform">
+      <select (click)="selectClickHandler()" class="combobox" [(ngModel)]="originCode">
+        <option value="" disabled selected>Select language</option>
         <hr/>
-      </optgroup>
-      <option *ngFor="let language of languages" [value]="language.code" [disabled]="originCode === language.code">{{ language.title }}</option>
-    </select>
-    <textarea [(ngModel)]="translatedText" [disabled]="!isEditable(2)" (ngModelChange)="onTextChange( 2)"></textarea>
+        <optgroup label="recent" *ngIf="recentLanguages.length > 0">
+          <option *ngFor="let recent of recentLanguages"
+                  [value]="recent.code"
+                  [disabled]="originCode === recent.code">
+            {{recent.title}}
+          </option>
+          <hr/>
+        </optgroup>
+        <option *ngFor="let language of languages" [value]="language.code" [disabled]="translateCode === language.code">{{ language.title }}</option>
+      </select>
+      <textarea [(ngModel)]="originText" [disabled]="!isEditable(1)" (ngModelChange)="onTextChange( 1)"></textarea>
+    </div>
+    <img class="switch_btn" src="assets/images/image%208.png" alt="" (click)="toggleContainers()" />
+    <div class="txt_container container2" [style.transform]="container2Transform">
+      <select (click)="selectClickHandler()" class="combobox" [(ngModel)]="translateCode">
+        <option value="" disabled selected>Select language</option>
+        <hr/>
+        <optgroup label="recent" *ngIf="recentLanguages.length > 0">
+          <option *ngFor="let recent of recentLanguages"
+                  [value]="recent.code"
+                  [disabled]="originCode === recent.code">
+            {{recent.title}}
+          </option>
+          <hr/>
+        </optgroup>
+        <option *ngFor="let language of languages" [value]="language.code" [disabled]="originCode === language.code">{{ language.title }}</option>
+      </select>
+      <textarea [(ngModel)]="translatedText" [disabled]="!isEditable(2)" (ngModelChange)="onTextChange( 2)"></textarea>
+    </div>
   </div>
 </div>
 </body>

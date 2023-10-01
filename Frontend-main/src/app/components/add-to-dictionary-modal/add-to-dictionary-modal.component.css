@@ -1,0 +1,67 @@
+.add-to-dictionary-modal {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #000205ad;
+}
+
+.add-to-dictionary-modal>.modal {
+  width: fit-content;
+  min-height: 150px;
+  border-radius: 8px;
+  background-color: #C8B6AE;
+  padding: 15px;
+  opacity: 0.8;
+}
+
+.add-to-dictionary-modal>.modal>.modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.add-to-dictionary-modal>.modal>.modal-close>.close-img {
+  cursor: pointer;
+}
+
+.add-to-dictionary-modal>.modal>.modal-close>.close-img:active {
+  transform: scale(0.9);
+}
+
+
+.add-to-dictionary-modal>.modal>.dictionaries {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add-to-dictionary-modal>.modal>.dictionaries>.dictionary-label {
+  font-size: 24px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.add-to-dictionary-modal>.modal>.dictionaries>.dictionary-label:hover {
+  font-weight: 600;
+}
+
+.add-to-dictionary-modal>.modal>.dictionaries>.dictionary-label.checked {
+  font-weight: 600;
+}
+
+.add-to-dictionary-modal>.modal>.dictionaries>.dictionary-label>.dictionary-checkbox {
+  width: 24px;
+  height: 20px;
+}
+
+
+

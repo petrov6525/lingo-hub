@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from "../auth.service"; // Replace 'path-to-auth.service' with the actual path to your AuthService
 import { User } from "../models/user.interface";
-import {LanguageCodeServiceService} from "../services/language-code/language-code.service.service"; // Replace 'User' with your user model type if needed
+import {LanguageCodeServiceService} from "../services/language-code/language-code.service.service";
+import {ModalVisibilityService} from "../services/modal-visibility/modal-visibility.service"; // Replace 'User' with your user model type if needed
 
 @Component({
   selector: 'app-translator',
@@ -26,7 +27,10 @@ export class TranslatorComponent implements OnInit {
   currentEditable: number = 1; // Variable to track the editable textarea
 
   constructor(private http: HttpClient, private authService: AuthService,
-              private languageCodeService: LanguageCodeServiceService) {}
+              private languageCodeService: LanguageCodeServiceService,
+              private modalVisibilityService: ModalVisibilityService) {
+
+  }
 
   ngOnInit() {
     // Fetch user data from local storage
@@ -116,12 +120,22 @@ export class TranslatorComponent implements OnInit {
       'uuid': this.user.id // Pass the user ID as a header
     });
 
-    const translationData = {
-      origin: this.originText,
-      originCode: this.originCode,
-      translateCode: this.translateCode,
-    };
 
+    let originText = this.originText;
+    let originCode = this.originCode;
+    let translateCode = this.translateCode;
+
+    if (this.currentEditable === 2) {
+      originText = this.translatedText;
+      originCode = this.translateCode;
+      translateCode = this.originCode;
+    }
+
+    const translationData = {
+      origin: originText,
+      originCode: originCode,
+      translateCode: translateCode,
+    };
 
     this.http
       .post<any>('http://localhost:8081/word/translate', translationData, { headers })
@@ -134,5 +148,14 @@ export class TranslatorComponent implements OnInit {
         this.isRecentFetched = false;
         this.recentLanguagesHandler();
       });
+  }
+
+  clearButtonClickHandler() {
+    this.originText = "";
+    this.translatedText = "";
+  }
+
+  addToDictionaryClickHandler() {
+    this.modalVisibilityService.onAddToDictionaryModalVisible();
   }
 }
