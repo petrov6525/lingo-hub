@@ -14,7 +14,7 @@ export class LoginComponent {
   constructor(private authService: AuthService) {}
 
   login(): void {
-    this.authService.login(this.email, this.password).subscribe((success: boolean) => {
+    /*this.authService.login(this.email, this.password).subscribe((success: boolean) => {
       if (success) {
         // Login successful, navigate to another page or perform other actions
         // You can also store user data in local storage or a session here
@@ -22,6 +22,6 @@ export class LoginComponent {
         // Login failed, display an error message to the user
         console.error("Authentication failed. Please check your email and password.");
       }
-    });
+    });*/
   }
 }

@@ -22,15 +22,16 @@ export class AppComponent implements OnInit {
 
   ) {}
   login(): void {
-    this.authService.login(this.email, this.password).subscribe((success: boolean) => {
-      if (success) {
-        // Login successful, navigate to another page or perform other actions
-        // You can also store user data in local storage or a session here
-      } else {
-        // Login failed, display an error message to the user
-        console.error("Authentication failed. Please check your email and password.");
-      }
-    });
+    const isLogin = this.authService.login(this.email, this.password);
+    // @ts-ignore
+    isLogin.subscribe({
+      next:(data: User) => {
+        this.router.navigate(['/translator']);
+      },
+    error:(error: any)=>{
+        document.location.reload();
+    }
+    })
   }
   ngOnInit() {
     // Fetch user data from local storage

@@ -1,19 +1,37 @@
 <body>
 <div class="translator_container">
   <div class="txt_container container1" [style.transform]="container1Transform">
-    <select class="combobox" [(ngModel)]="selectedLanguage1">
+    <select (click)="selectClickHandler()" class="combobox" [(ngModel)]="originCode">
       <option value="" disabled selected>Select language</option>
-      <option *ngFor="let language of languages" [value]="language.code" [disabled]="selectedLanguage2 === language.code">{{ language.title }}</option>
+      <hr/>
+      <optgroup label="recent" *ngIf="recentLanguages.length > 0">
+        <option *ngFor="let recent of recentLanguages"
+                [value]="recent.code"
+                [disabled]="originCode === recent.code">
+          {{recent.title}}
+        </option>
+        <hr/>
+      </optgroup>
+      <option *ngFor="let language of languages" [value]="language.code" [disabled]="translateCode === language.code">{{ language.title }}</option>
     </select>
-    <textarea [(ngModel)]="englishText" [disabled]="!isEditable(1)" (ngModelChange)="onTextChange(englishText, selectedLanguage1, selectedLanguage2, 1)"></textarea>
+    <textarea [(ngModel)]="originText" [disabled]="!isEditable(1)" (ngModelChange)="onTextChange( 1)"></textarea>
   </div>
   <img class="switch_btn" src="assets/images/image%208.png" alt="" (click)="toggleContainers()" />
   <div class="txt_container container2" [style.transform]="container2Transform">
-    <select class="combobox" [(ngModel)]="selectedLanguage2">
+    <select (click)="selectClickHandler()" class="combobox" [(ngModel)]="translateCode">
       <option value="" disabled selected>Select language</option>
-      <option *ngFor="let language of languages" [value]="language.code" [disabled]="selectedLanguage1 === language.code">{{ language.title }}</option>
+      <hr/>
+      <optgroup label="recent" *ngIf="recentLanguages.length > 0">
+        <option *ngFor="let recent of recentLanguages"
+                [value]="recent.code"
+                [disabled]="originCode === recent.code">
+          {{recent.title}}
+        </option>
+        <hr/>
+      </optgroup>
+      <option *ngFor="let language of languages" [value]="language.code" [disabled]="originCode === language.code">{{ language.title }}</option>
     </select>
-    <textarea [(ngModel)]="translationResult" [disabled]="!isEditable(2)" (ngModelChange)="onTextChange(translationResult, selectedLanguage2, selectedLanguage1, 2)"></textarea>
+    <textarea [(ngModel)]="translatedText" [disabled]="!isEditable(2)" (ngModelChange)="onTextChange( 2)"></textarea>
   </div>
 </div>
 </body>
