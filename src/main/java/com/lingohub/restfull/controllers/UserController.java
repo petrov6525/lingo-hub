@@ -9,8 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -41,11 +39,8 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addUser(@RequestBody User user, HttpServletRequest request) {
-        if (authService.checkAuth(request)) {
+    public ResponseEntity<?> addUser(@RequestBody User user) {
             return new ResponseEntity<>(userService.addUser(user), HttpStatus.CREATED);
-        }
-        return authService.createUnauthorizedResponse();
     }
 
     @PutMapping("/update")

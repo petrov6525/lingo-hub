@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from "../auth.service"; // Replace 'path-to-auth.service' with the actual path to your AuthService
-import { User } from "../models/user.interface"; // Replace 'User' with your user model type if needed
+import { User } from "../models/user.interface";
+import {LanguageCodeServiceService} from "../services/language-code/language-code.service.service";
+import {ModalVisibilityService} from "../services/modal-visibility/modal-visibility.service"; // Replace 'User' with your user model type if needed
 
 @Component({
   selector: 'app-translator',
@@ -12,18 +14,23 @@ export class TranslatorComponent implements OnInit {
   container1Transform = 'translateY(0%)';
   container2Transform = 'translateY(0%)';
 
+  isRecentFetched: boolean = false;
   languages: any[] = []; // This array will hold the language data
-  selectedLanguage1: string = '';
-  selectedLanguage2: string = '';
-  englishText: string = '';
-  ukraineText: string = '';
-  translationResult: string = ''; // Initialize translationResult as an empty string
+  recentLanguages: any[] = [];
+  originCode: string = '';
+  translateCode: string = '';
+  originText: string = '';
+  translatedText: string = ''; // Initialize translatedText as an empty string
 
   user: User | null = null;
   userId: number | null = null;
   currentEditable: number = 1; // Variable to track the editable textarea
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
+  constructor(private http: HttpClient, private authService: AuthService,
+              private languageCodeService: LanguageCodeServiceService,
+              private modalVisibilityService: ModalVisibilityService) {
+
+  }
 
   ngOnInit() {
     // Fetch user data from local storage
@@ -37,17 +44,23 @@ export class TranslatorComponent implements OnInit {
   }
 
   fetchLanguageCodes() {
-    // Define the headers with the authentication token
-    const headers = new HttpHeaders({
-      'auth-token': 'sirh545dff4e5f4ffkfjhe',
-    });
+    this.languageCodeService.fetchLanguageCodes().subscribe(
+        (response) => {
+          if (response) {
+            this.languages = response;
+          }
+        });
+  }
 
-    // Send the GET request to the API to fetch language codes
-    this.http
-      .get<any[]>('http://localhost:8081/lang-code/all', { headers })
-      .subscribe((data) => {
-        // Sort the languages by count in descending order
-        this.languages = data.sort((a, b) => b.count - a.count);
+  fetchRecentCodes() {
+    this.languageCodeService.fetchRecentLanguages().subscribe(
+      (response) => {
+        if (response) {
+          this.recentLanguages = response.map((item: any) => {
+            return item.languageCode;
+          });
+          this.isRecentFetched = true;
+        }
       });
   }
 
@@ -64,26 +77,62 @@ export class TranslatorComponent implements OnInit {
     }
   }
 
+  selectClickHandler() {
+    this.recentLanguagesHandler();
+    this.translateHandler();
+  }
+
+  recentLanguagesHandler() {
+    if (!this.isRecentFetched) {
+      this.fetchRecentCodes();
+    }
+
+  }
+
+  translateHandler() {
+    this.onTextChange(this.currentEditable);
+  }
+
   // Function to check if a textarea is editable
   isEditable(textareaNumber: number): boolean {
     return this.currentEditable === textareaNumber;
   }
 
   // Function to handle text changes and translation
-  onTextChange(text: string, originCode: string, translateCode: string, textareaNumber: number) {
-    if (text.trim() === '') {
+  onTextChange(textareaNumber: number) {
+    if (this.originText.trim() === '') {
       // Handle empty text as needed
-      this.translationResult = ''; // Clear the translation result
+      this.translatedText = ''; // Clear the translation result
+      return;
+    }
+
+    if (this.translateCode === "" || this.originCode === "") {
+      return;
+    }
+
+    this.user = this.authService.getCurrentUser();
+    if (!this.user) {
       return;
     }
 
     const headers = new HttpHeaders({
-      'auth-token': 'sirh545dff4e5f4ffkfjhe',
-      'uuid': this.userId?.toString() || '', // Pass the user ID as a header
+      'auth-token': this.authService.getAuthToken(),
+      'uuid': this.user.id // Pass the user ID as a header
     });
 
+
+    let originText = this.originText;
+    let originCode = this.originCode;
+    let translateCode = this.translateCode;
+
+    if (this.currentEditable === 2) {
+      originText = this.translatedText;
+      originCode = this.translateCode;
+      translateCode = this.originCode;
+    }
+
     const translationData = {
-      origin: text,
+      origin: originText,
       originCode: originCode,
       translateCode: translateCode,
     };
@@ -92,10 +141,21 @@ export class TranslatorComponent implements OnInit {
       .post<any>('http://localhost:8081/word/translate', translationData, { headers })
       .subscribe((data) => {
         if (textareaNumber === 1) {
-          this.translationResult = data?.translate || ''; // Store the translation result or an empty string if no translation is available
+          this.translatedText = data?.translate || ''; // Store the translation result or an empty string if no translation is available
         } else {
-          this.englishText = data?.translate || ''; // Update the other textarea with the translation result
+          this.originText = data?.translate || ''; // Update the other textarea with the translation result
         }
+        this.isRecentFetched = false;
+        this.recentLanguagesHandler();
       });
+  }
+
+  clearButtonClickHandler() {
+    this.originText = "";
+    this.translatedText = "";
+  }
+
+  addToDictionaryClickHandler() {
+    this.modalVisibilityService.onAddToDictionaryModalVisible();
   }
 }

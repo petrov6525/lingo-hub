@@ -47,4 +47,31 @@ public class WordController {
         }
         return authService.createUnauthorizedResponse();
     }
+
+    @GetMapping("/collection")
+    public ResponseEntity<?> getCollection(@RequestParam("dictionaries")Long[] dictionaries,
+                                           HttpServletRequest request) {
+        if (authService.checkAuth(request)) {
+            try {
+                return new ResponseEntity<>(wordService.getCollection(dictionaries), HttpStatus.OK);
+            } catch (Exception ex) {
+                return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        return authService.createUnauthorizedResponse();
+    }
+
+    @GetMapping("/all/{dictionaryId}")
+    public ResponseEntity<?> getAllByDictionaryId(@PathVariable("dictionaryId")long dictionaryId,
+                                                  HttpServletRequest request)
+    {
+        if (authService.checkAuth(request)) {
+            try {
+                return new ResponseEntity<>(wordService.findAllByDictionaryId(dictionaryId), HttpStatus.OK);
+            } catch (Exception ex) {
+                return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        }
+        return authService.createUnauthorizedResponse();
+    }
 }

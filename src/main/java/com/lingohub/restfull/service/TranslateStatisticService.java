@@ -55,6 +55,11 @@ public class TranslateStatisticService {
     }
 
     public List<TranslateStatistic> findAllByUserId(int userId) {
-        return translateStatisticRepository.findAllByUserIdOrderByCountDesc(userId);
+        final int limit = 5;
+        List<TranslateStatistic> sortedList = translateStatisticRepository.findAllByUserIdOrderByCountDesc(userId);
+        if (sortedList.size() > limit) {
+            return sortedList.subList(0, limit);
+        }
+        return sortedList;
     }
 }

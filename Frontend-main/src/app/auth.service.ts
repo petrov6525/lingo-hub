@@ -1,9 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
-import { User } from './models/user.interface';
-import { Router } from '@angular/router';
-import { Injectable } from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable, of, throwError} from 'rxjs';
+import {map, catchError, tap} from 'rxjs/operators';
+import {User} from './models/user.interface';
+import {Router} from '@angular/router';
+import {Injectable} from '@angular/core';
 
 @Injectable({
     providedIn: 'root',
@@ -20,34 +20,24 @@ export class AuthService {
         }
     }
 
-    login(email: string, password: string): Observable<boolean> {
-        const headers = new HttpHeaders({
-            'auth-token': 'sirh545dff4e5f4ffkfjhe', // Replace with your actual token
-        });
-
-        return this.http
-            .get<User[]>('http://localhost:8081/users/all', { headers })
+    login(email: string, password: string): Observable<User> {
+        return this.http.post<User>('http://localhost:8081/auth/login',
+            {
+                email: email,
+                password: password
+            })
             .pipe(
-                map((users) => {
-                    const matchedUser = users.find(
-                        (user) => user.email === email && user.password === password
-                    );
-
-                    if (matchedUser) {
-                        this.isAuthenticated = true;
-                        this.currentUser = matchedUser;
-                        localStorage.setItem('currentUser', JSON.stringify(matchedUser));
-                        this.router.navigate(['/dictionaries']);
-                        return true;
+                tap((response) => {
+                    if (!response) {
+                        console.log("User not found");
                     } else {
-                        this.isAuthenticated = false;
-                        this.currentUser = null;
-                        return false;
+                        this.currentUser = response;
+                        localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
                     }
                 }),
                 catchError((error) => {
-                    console.error('An error occurred:', error);
-                    return of(false);
+                    console.error("Произошла ошибка при выполнении запроса:", error);
+                    return throwError(error);
                 })
             );
     }
@@ -76,7 +66,7 @@ export class AuthService {
             'auth-token': 'sirh545dff4e5f4ffkfjhe', // Replace with your actual token
         });
 
-        return this.http.put(`http://localhost:8081/users/update`, user, { headers }).pipe(
+        return this.http.put(`http://localhost:8081/users/update`, user, {headers}).pipe(
             map((response) => {
                 return response;
             }),
@@ -85,5 +75,14 @@ export class AuthService {
                 return of(null);
             })
         );
+    }
+
+    getAuthToken(): string | any {
+        if (this.currentUser) {
+            return this.currentUser.token;
+        } else {
+            this.router.navigate(['/login']).then(r => {
+            })
+        }
     }
 }

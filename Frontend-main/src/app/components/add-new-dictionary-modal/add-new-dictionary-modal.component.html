@@ -1,0 +1,42 @@
+<div class="add-new-dictionary-modal"
+     *ngIf="isVisible">
+  <div class="modal">
+    <div class="modal-close">
+      <img class="close-img" ngSrc="assets/images/close.svg" height="24" width="24" alt="close"
+           (click)="closeModalHandler()"/>
+    </div>
+    <div class="new-dictionary-form">
+      <div class="row">
+        <label>
+          <p>Title</p>
+          <input class="title-text" type="text" [(ngModel)]="title" (input)="inputChangeHandler()" />
+        </label>
+      </div>
+      <div class="row">
+        <select [(ngModel)]="originCodeId" class="lang-code-select"
+                (change)="inputChangeHandler()">
+          <option value="" disabled selected>Origin Language</option>
+          <option *ngFor="let language of languages"
+                  [value]="language.id"
+                  [disabled]="language.id == translateCodeId">{{language.title}}</option>
+        </select>
+      </div>
+      <div class="row">
+        <select [(ngModel)]="translateCodeId" class="lang-code-select"
+                (change)="inputChangeHandler()">
+          <option value="" disabled selected>Translate Language</option>
+          <option *ngFor="let language of languages"
+                  [value]="language.id"
+                  [disabled]="language.id == originCodeId">{{language.title}}</option>
+        </select>
+      </div>
+      <div class="add-button-container">
+        <button class="add-button button"
+                [disabled]="!isValidate">Add</button>
+      </div>
+      <div class="add-button-container">
+        <button class="cancel-button button" (click)="cancelClickHandler()">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

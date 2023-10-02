@@ -12,7 +12,10 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms'; // Import FormsModule
 import { HttpClientModule } from '@angular/common/http';
 import { TranslatorComponent } from './translator/translator.component';
-import { RegisterComponent } from './register/register.component'; // Import HttpClientModule
+import { RegisterComponent } from './register/register.component';
+import { AddToDictionaryModalComponent } from './components/add-to-dictionary-modal/add-to-dictionary-modal.component';
+import {NgOptimizedImage} from "@angular/common";
+import { AddNewDictionaryModalComponent } from './components/add-new-dictionary-modal/add-new-dictionary-modal.component'; // Import HttpClientModule
 
 @NgModule({
   declarations: [
@@ -23,13 +26,16 @@ import { RegisterComponent } from './register/register.component'; // Import Htt
     LoginComponent,
     TranslatorComponent,
     RegisterComponent,
+    AddToDictionaryModalComponent,
+    AddNewDictionaryModalComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        HttpClientModule,
+        NgOptimizedImage
+    ],
   providers: [],
   bootstrap: [AppComponent],
 

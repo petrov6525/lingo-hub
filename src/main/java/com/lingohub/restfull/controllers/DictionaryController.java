@@ -57,4 +57,5 @@ public class DictionaryController {
         }
         return authService.createUnauthorizedResponse();
     }
+
 }

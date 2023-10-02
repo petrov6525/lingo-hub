@@ -4,6 +4,7 @@ package com.lingohub.restfull.service;
 import com.lingohub.restfull.exception.DictionaryNotFoundException;
 import com.lingohub.restfull.models.Dictionary;
 import com.lingohub.restfull.models.User;
+import com.lingohub.restfull.models.Word;
 import com.lingohub.restfull.repo.DictionaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class DictionaryService {
     private final LanguageCodeService languageCodeService;
 
     @Autowired
-    public DictionaryService(DictionaryRepository dictionaryRepository, UserService userService, LanguageCodeService languageCodeService) {
+    public DictionaryService(DictionaryRepository dictionaryRepository, UserService userService, LanguageCodeService languageCodeService ) {
         this.dictionaryRepository = dictionaryRepository;
         this.userService = userService;
         this.languageCodeService = languageCodeService;
@@ -48,6 +49,7 @@ public class DictionaryService {
     public List<Dictionary> getAllByUserId(int userId) {
         return dictionaryRepository.findAllByUserId(userId);
     }
+
 }
 
 
