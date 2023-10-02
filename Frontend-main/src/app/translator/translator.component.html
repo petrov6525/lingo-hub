@@ -5,7 +5,8 @@
       <button class="clear-button" (click)="clearButtonClickHandler()">Clear</button>
     </div>
     <div class="add-button-container">
-      <button class="add-button" (click)="addToDictionaryClickHandler()">Add</button>
+      <button class="add-button" (click)="addToDictionaryClickHandler()"
+            [disabled]="translatedWord === null">Add</button>
     </div>
   </div>
   <div class="translation-block">

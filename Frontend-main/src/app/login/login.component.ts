@@ -1,17 +1,27 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {User} from "../models/user.interface";
 import {AuthService} from "../auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   email: string = '';
   password: string = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+              private router: Router) {}
+
+  ngOnInit() {
+    console.log("login");
+    if (this.authService.getCurrentUser() !== null) {
+      this.router.navigate(['/translator']);
+    }
+  }
+
 
   login(): void {
     /*this.authService.login(this.email, this.password).subscribe((success: boolean) => {

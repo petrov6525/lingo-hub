@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from "../auth.service"; // Replace 'path-to-auth.service' with the actual path to your AuthService
 import { User } from "../models/user.interface";
 import {LanguageCodeServiceService} from "../services/language-code/language-code.service.service";
-import {ModalVisibilityService} from "../services/modal-visibility/modal-visibility.service"; // Replace 'User' with your user model type if needed
+import {ModalVisibilityService} from "../services/modal-visibility/modal-visibility.service";
+import {Subscription} from "rxjs";
+import {DictionaryService} from "../services/dictionary/dictionary.service"; // Replace 'User' with your user model type if needed
 
 @Component({
   selector: 'app-translator',
   templateUrl: './translator.component.html',
   styleUrls: ['./translator.component.css'],
 })
-export class TranslatorComponent implements OnInit {
+export class TranslatorComponent implements OnInit, OnDestroy {
   container1Transform = 'translateY(0%)';
   container2Transform = 'translateY(0%)';
 
@@ -21,6 +23,8 @@ export class TranslatorComponent implements OnInit {
   translateCode: string = '';
   originText: string = '';
   translatedText: string = ''; // Initialize translatedText as an empty string
+  translatedWord: any = null;
+  private translatedWordSubscription: Subscription = new Subscription();
 
   user: User | null = null;
   userId: number | null = null;
@@ -28,7 +32,8 @@ export class TranslatorComponent implements OnInit {
 
   constructor(private http: HttpClient, private authService: AuthService,
               private languageCodeService: LanguageCodeServiceService,
-              private modalVisibilityService: ModalVisibilityService) {
+              private modalVisibilityService: ModalVisibilityService,
+              private dictionaryService: DictionaryService) {
 
   }
 
@@ -41,6 +46,11 @@ export class TranslatorComponent implements OnInit {
 
     // Call the method to fetch language codes when the component initializes
     this.fetchLanguageCodes();
+    this.translatedWordSubscription = this.dictionaryService.translatedWordData$.subscribe(
+      (data) => {
+        this.translatedWord = data;
+      }
+    )
   }
 
   fetchLanguageCodes() {
@@ -100,6 +110,7 @@ export class TranslatorComponent implements OnInit {
 
   // Function to handle text changes and translation
   onTextChange(textareaNumber: number) {
+    this.dictionaryService.setTranslatedWord(null);
     if (this.originText.trim() === '') {
       // Handle empty text as needed
       this.translatedText = ''; // Clear the translation result
@@ -147,6 +158,7 @@ export class TranslatorComponent implements OnInit {
         }
         this.isRecentFetched = false;
         this.recentLanguagesHandler();
+        this.dictionaryService.setTranslatedWord(data);
       });
   }
 
@@ -157,5 +169,9 @@ export class TranslatorComponent implements OnInit {
 
   addToDictionaryClickHandler() {
     this.modalVisibilityService.onAddToDictionaryModalVisible();
+  }
+
+  ngOnDestroy(): void {
+    this.translatedWordSubscription.unsubscribe();
   }
 }

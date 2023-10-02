@@ -95,11 +95,11 @@ textarea {
 .buttons-block button.clear-button:hover {
   color: red;
 }
-.buttons-block button:active {
+.buttons-block button:not([disabled]):active {
   transform: scale(0.9);
 }
 
-.buttons-block button.add-button:hover {
+.buttons-block button.add-button:not([disabled]):hover {
   color: green;
 }
 

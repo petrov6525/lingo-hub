@@ -88,6 +88,10 @@
   color: red;
 }
 
+.add-new-dictionary-modal>.modal>.new-dictionary-form .add-button-container>.add-button:not([disabled]):hover {
+  color: green;
+}
+
 
 
 

@@ -15,5 +15,11 @@
         {{item.title}} ({{item.desc}})
       </label>
     </div>
+    <div class="buttons">
+      <button class="button add-button"
+              [disabled]="checkedDictionaries.length === 0"
+              (click)="addClickHandler()">Add</button>
+      <button class="button cancel-button">Cancel</button>
+    </div>
   </div>
 </div>

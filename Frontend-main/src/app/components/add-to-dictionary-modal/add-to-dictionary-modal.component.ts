@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ModalVisibilityService} from "../../services/modal-visibility/modal-visibility.service";
 import {Subscription} from "rxjs";
-import {DictionaryService} from "../../services/dictionary.service";
+import {DictionaryService} from "../../services/dictionary/dictionary.service";
 
 @Component({
   selector: 'add-to-dictionary-modal',
@@ -14,6 +14,7 @@ export class AddToDictionaryModalComponent implements OnInit, OnDestroy{
 
   dictionaries: any[] = [];
   checkedDictionaries: any[] = [];
+  status: any;
   constructor(private modalVisibilityService: ModalVisibilityService,
               private dictionaryService: DictionaryService) {
   }
@@ -61,6 +62,11 @@ export class AddToDictionaryModalComponent implements OnInit, OnDestroy{
     else {
       this.checkedDictionaries.splice(index, 1);
     }
+  }
+
+  addClickHandler() {
+    const result = this.dictionaryService.addWordToDictionary(this.checkedDictionaries);
+    console.log(result);
   }
 
 

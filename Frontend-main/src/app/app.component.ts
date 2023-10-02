@@ -36,6 +36,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // Fetch user data from local storage
     this.currentUser = this.authService.getCurrentUser();
+    if (this.currentUser !== undefined) {
+      this.router.navigate(['/translator']);
+    }
   }
   register() {
     // Create the user object to send to the server
