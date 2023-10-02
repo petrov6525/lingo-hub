@@ -161,6 +161,81 @@ export class DictionariesListComponent implements OnInit {
                         if (dictionary.name === decodedDictionaryName) {
                             // Mark the dictionary as active
                             dictionary.active = true;
+                            const apiUrl = `http://localhost:8081/word/all/${dictionary.id}`;
+
+                            // Define the headers
+                            const headers = new Headers({
+                                'Content-Type': 'application/json',
+                                'auth-token': 'sirh545dff4e5f4ffkfjhe',
+                            });
+
+                            // Create the request object with headers
+                            const request = new Request(apiUrl, {
+                                method: 'GET',
+                                headers: headers,
+                            });
+
+                            // Make the fetch request
+                            fetch(request)
+                                .then((response) => {
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok');
+                                    }
+                                    return response.json();
+                                })
+                                .then((data) => {
+                                    // Handle the data received from the API
+                                    function shuffleArray(array: any[]) {
+                                        // Create a copy of the original array
+                                        const shuffledArray = [...array];
+
+                                        // Perform a Fisher-Yates shuffle
+                                        for (let i = shuffledArray.length - 1; i > 0; i--) {
+                                            const j = Math.floor(Math.random() * (i + 1));
+                                            [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+                                        }
+
+                                        return shuffledArray;
+                                    }
+                                    const arrayOfAnswers: any[] = [];
+
+                                    for (let i = 0; i < data.length; i++) {
+                                        const newObj = {
+                                            name: data[i].translate, isCorrect: false,
+                                        };
+
+                                        arrayOfAnswers.push(newObj);
+                                    }
+
+                                    const questions: any[] = [];
+
+                                    for (let i = 0; i < data.length; i++) {
+                                        // Shuffle the answers for each question
+                                        const shuffledAnswers = shuffleArray(arrayOfAnswers);
+
+                                        const newQuestion = {
+                                            question: data[i].origin,
+                                            answers: shuffledAnswers,
+                                        };
+                                        for(let j = 0; j < data.length;j++){
+                                            if(data[i].translate == newQuestion.answers[j].name){
+                                                newQuestion.answers[j].isCorrect = true;
+                                            }
+                                        }
+
+                                        questions.push(newQuestion);
+                                        for(let j = 0; j <newQuestion.answers.length;j++){
+                                            newQuestion.answers[j].isCorrect = false;
+                                        }
+
+                                    }
+                                    console.log(questions);
+                                    // Process the data as needed
+                                })
+                                .catch((error) => {
+                                    // Handle any errors that occurred during the fetch
+                                    console.error('Error fetching data:', error);
+                                });
                         } else {
                             // Remove the active flag from other dictionaries
                             dictionary.active = false;
@@ -177,6 +252,7 @@ export class DictionariesListComponent implements OnInit {
         }
         this.startTimer();
     }
+
     redirectToDictionary(dictionaryName: string) {
         // Encode the dictionaryName, replacing spaces with underscores
         const formattedDictionaryName = dictionaryName.replace(/\s+/g, '_');
