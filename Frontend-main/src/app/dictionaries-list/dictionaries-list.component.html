@@ -1,31 +1,24 @@
 <body>
-    <div class="dictionary_list">
-        <div class="list_child">Dictionary1</div>
-        <div class="list_child">Dictionary2</div>
-        <div class="list_child">Dictionary3</div>
-        <div class="list_child">Dictionary4</div>
-        <div class="list_child">Dictionary5</div>
-        <div class="list_child">Dictionary6</div>
-        <div class="list_child">Dictionary7</div>
-        <div class="list_child">Dictionary8</div>
-    </div>
-    <div class="dictionary_container">
-        <div class="top_d_container">
-            <h1>Name</h1>
-            <h2>1:00</h2>
-        </div>
-        <label class="radio_input">
-            <input type="radio" value="true" name="yourRadioGroupName"> True
-        </label>
-        <label class="radio_input">
-            <input type="radio" value="false" name="yourRadioGroupName"> False
-        </label>
-        <label class="radio_input">
-            <input type="radio" value="false" name="yourRadioGroupName"> False
-        </label>
-        <label class="radio_input">
-            <input type="radio" value="false" name="yourRadioGroupName"> False
-        </label>
-        <button type="submit">Submit</button>
-    </div>
+<div class="dictionary_list">
+  <!-- Display the list of dictionaries (unchanged) -->
+  <div *ngFor="let dictionary of dictionaries" class="list_child" [class.active]="dictionary.active" (click)="redirectToDictionary(dictionary.name)">{{ dictionary.name }}</div>
+</div>
+
+<div class="dictionary_container">
+  <div class="top_d_container">
+    <!-- Display the current question dynamically -->
+    <h1 class="d_container_h1">{{ questions[currentQuestionIndex]?.question }}</h1>
+    <h2 class="d_container_h2">{{ timerMinutes }}:{{ timerSeconds < 10 ? '0' + timerSeconds : timerSeconds }}</h2>
+  </div>
+
+  <!-- Display the answers dynamically based on the current question -->
+  <label class="radio_input" *ngFor="let answer of questions[currentQuestionIndex]?.answers; let i = index">
+    <input type="radio" [value]="answer.name" name="yourRadioGroupName" [(ngModel)]="userAnswers[currentQuestionIndex]"> {{ answer.name }}
+  </label>
+
+  <!-- Use the checkAnswer function to check the selected answer -->
+  <button class="btn_Submit" (click)="onNextClick()">
+    {{ currentQuestionIndex < questions.length - 1 ? 'Next' : 'Submit' }}
+  </button>
+</div>
 </body>

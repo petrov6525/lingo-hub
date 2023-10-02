@@ -34,6 +34,12 @@ body{
 .list_child:hover {
     transform: translateY(5px);
     transition: transform 0.2s ease;
+  background-color: #D9D9D9;
+}
+.active{
+  transform: translateY(5px);
+  transition: transform 0.2s ease;
+  background-color: #D9D9D9;
 }
 .dictionary_container{
     display: flex;
@@ -55,5 +61,40 @@ h2 {
     right: 10px;
 }
 .radio_input{
+  font-size: 42px;
+  color: white;
+  font-weight: 600;
+  width: 40%;
+}
+input{
+  width: 20px;
+  height: 20px;
+  margin-right: 1rem;
+  border: 2px solid black;
+}
+.d_container_h1{
+  color: white;
+  font-size: 52px;
+  margin: 0;
+  margin-bottom: 1rem;
+}
+.d_container_h2{
+  color: white;
   font-size: 32px;
+}
+.btn_Submit{
+  margin: 1rem;
+  background-color: white;
+  color: black;
+  font-size: 32px;
+  border-radius: 8px;
+  border: none;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  cursor: pointer;
+  transition-duration: 0.2s;
+
+  margin-left: auto;
+}
+.btn_Submit:hover{
+  transform: scale(0.9);
 }
