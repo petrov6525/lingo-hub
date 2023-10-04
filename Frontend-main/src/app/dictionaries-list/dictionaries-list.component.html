@@ -1,24 +1,16 @@
 <body>
-<div class="dictionary_list">
-  <!-- Display the list of dictionaries (unchanged) -->
-  <div *ngFor="let dictionary of dictionaries" class="list_child" [class.active]="dictionary.active" (click)="redirectToDictionary(dictionary.name)">{{ dictionary.name }}</div>
-</div>
-
-<div class="dictionary_container">
-  <div class="top_d_container">
-    <!-- Display the current question dynamically -->
-    <h1 class="d_container_h1">{{ questions[currentQuestionIndex]?.question }}</h1>
-    <h2 class="d_container_h2">{{ timerMinutes }}:{{ timerSeconds < 10 ? '0' + timerSeconds : timerSeconds }}</h2>
+<div class="dictionary_listing">
+  <!-- Use *ngFor to loop through dictionaries -->
+  <div class="listen_d_item" *ngFor="let dictionary of dictionaries" (click)="fetchAndDisplayWords(dictionary.id)">
+    {{ dictionary.name }}
   </div>
-
-  <!-- Display the answers dynamically based on the current question -->
-  <label class="radio_input" *ngFor="let answer of questions[currentQuestionIndex]?.answers; let i = index">
-    <input type="radio" [value]="answer.name" name="yourRadioGroupName" [(ngModel)]="userAnswers[currentQuestionIndex]"> {{ answer.name }}
-  </label>
-
-  <!-- Use the checkAnswer function to check the selected answer -->
-  <button class="btn_Submit" (click)="onNextClick()">
-    {{ currentQuestionIndex < questions.length - 1 ? 'Next' : 'Submit' }}
-  </button>
+</div>
+<div class="dictionary_container">
+  <div *ngFor="let word of words" class="listed_translate">
+    <div >
+      <h1>{{ word.origin }}</h1>
+      <h2>{{ word.translate }}</h2>
+    </div>
+  </div>
 </div>
 </body>

@@ -1,8 +1,89 @@
-<nav *ngIf="isRootRoute()">
-  <a routerLink="/profile/username">Go route /profile/{{'{'}}username{{'}'}}</a>
-  <br/>
-  <a routerLink="/dictionaries">Dictionaries</a>
-</nav>
+<div *ngIf="isRootRoute()">
+  <div class="start_container" >
+    <div class="start_con_el">
+      <img class="logo_img1" src="assets/images/Logo_orange.png" alt="My Image">
+      <div class="start_text_el">
+        <h1>LingoHub</h1>
+        <p>We help you learn and express yourself in another language</p>
+        <div class="links_reg_log">
+          <a href="/register">Register</a>
+          <a href="/login">Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="about_our_training">
+    <h1><span>About Ou</span>r Training</h1>
+    <div class="about_info_container">
+      <ul>
+        <li>More than 100 languages</li>
+        <li>Very easy to understand</li>
+        <li>Very simple to use</li>
+        <li>Fasten up your learning</li>
+        <li>Approved by the best specialists</li>
+      </ul>
+      <ul>
+        <li>Build your dictionary</li>
+        <li>Test yourself</li>
+      </ul>
+    </div>
+  </div>
+  <div class="why_study_container">
+    <h1>Why study a language in <span>LingoHub?</span></h1>
+  </div>
+  <div class="side_info">
+    <div class="side_el">
+      <h3>INTERACTIVE COMMUNITY</h3>
+      <h1>Learning <span>together</span> is more effective</h1>
+      <p>Don't limit yourself to a textbook. Get pronunciation practice, learn more about the culture of the language you are studying and its intricacies from an international community of learners</p>
+    </div>
+    <div class="side_el reverse_side_el">
+      <h3>LESSONS WITH REAL PEOPLE</h3>
+      <h1>Learn skills useful in <span>real life</span> </h1>
+      <p>Say goodbye to outdated language constructs. Learn skills that will be useful in life. Learn everyday language with regularly updated content, video cards of real people, and useful cultural information</p>
+    </div>
+    <div class="side_el">
+      <h3>LEARNING AT YOUR OWN PACE</h3>
+      <h1>Learn your way</h1>
+      <p>Whatever your reason for learning a language, we have something to offer you. We will help you achieve your goal with short lessons strictly on the topic. All in your hands</p>
+    </div>
+  </div>
+  <hr class="hr1">
+  <div class="footer">
+    <div class="contact_info">
+      <img class="logo_img2" src="assets/images/Logo_orange.png" alt="My Image">
+      <h1>LingoHub</h1>
+      <h4>+380 564 716 235</h4>
+      <h4>informations@gmail.com</h4>
+    </div>
+    <ul class="footer_ul">
+      <li>Main</li>
+      <li>Teachers</li>
+      <li>Training</li>
+      <li>Accommodation</li>
+    </ul>
+    <ul class="footer_ul">
+      <li>Schedule</li>
+      <li>Payment</li>
+      <li>Books</li>
+      <li>Payment</li>
+    </ul>
+    <ul class="footer_ul">
+      <li>Main</li>
+      <li>Teachers</li>
+      <li>Training</li>
+      <li>Accommodation</li>
+    </ul>
+    <div class="social_links">
+      <img class="logo_img2" src="assets/images/youtubeIc.png" alt="My Image">
+      <img class="logo_img2" src="assets/images/InstaIc.png" alt="My Image">
+      <img class="logo_img2" src="assets/images/telegramIc.png" alt="My Image">
+    </div>
+  </div>
+  <hr class="hr2">
+  <p class="footer_p">LingoHub © 2017-2023</p>
+</div>
+
 
 <div class="lingo_logo_div" *ngIf="!isRootRoute() && !isLoginPage() && !isRegisterPage()">
   <img class="logo_img" src="assets/images/logo.png" alt="My Image">
@@ -14,7 +95,7 @@
   <a class="menu_a" routerLinkActive="active" routerLink="/dictionaries">Dictionaries</a>
   <a class="menu_a" routerLinkActive="active" routerLink="/quiz">Quiz</a>
 </div>
-<div class="content-container" *ngIf="!isLoginPage() && !isRegisterPage()" >
+<div class="content-container" *ngIf="!isLoginPage() && !isRegisterPage() && !isRootRoute()" >
   <router-outlet></router-outlet>
 </div>
 <div class="lingo_menu_div" *ngIf="!isRootRoute() && isLoginPage() || isRegisterPage()">
@@ -57,6 +138,6 @@
   <img class="logo_img" src="assets/images/logo.png" alt="My Image">
   <h1>LingoHub</h1>
 </div>
-<add-to-dictionary-modal />
-<add-new-dictionary-modal />
+<!-- <add-to-dictionary-modal></add-to-dictionary-modal>
+<add-new-dictionary-modal></add-new-dictionary-modal> -->
 
