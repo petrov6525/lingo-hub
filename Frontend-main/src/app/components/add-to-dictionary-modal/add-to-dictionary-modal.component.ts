@@ -65,12 +65,25 @@ export class AddToDictionaryModalComponent implements OnInit, OnDestroy{
   }
 
   addClickHandler() {
-    const result = this.dictionaryService.addWordToDictionary(this.checkedDictionaries);
-    console.log(result);
+    this.dictionaryService.addWordToDictionary(this.checkedDictionaries)
+      .subscribe(
+        () => {
+          console.log('All words were successfully added to dictionaries.');
+          this.modalVisibilityService.onSuccessModalVisible();
+          this.modalVisibilityService.offAddToDictionaryModalVisible()
+        },
+        (error: any) => {
+          console.log('Error occurred:', error);
+          this.modalVisibilityService.onErrorModalVisible();
+          this.modalVisibilityService.offAddToDictionaryModalVisible()
+        }
+      );
   }
 
-
-
+  cancelClickHandler() {
+    this.checkedDictionaries = [];
+    this.modalVisibilityService.offAddToDictionaryModalVisible();
+  }
 
 
 

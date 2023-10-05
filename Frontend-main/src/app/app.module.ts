@@ -15,20 +15,24 @@ import { TranslatorComponent } from './translator/translator.component';
 import { RegisterComponent } from './register/register.component';
 import { AddToDictionaryModalComponent } from './components/add-to-dictionary-modal/add-to-dictionary-modal.component';
 import {NgOptimizedImage} from "@angular/common";
-import { AddNewDictionaryModalComponent } from './components/add-new-dictionary-modal/add-new-dictionary-modal.component'; // Import HttpClientModule
+import { AddNewDictionaryModalComponent } from './components/add-new-dictionary-modal/add-new-dictionary-modal.component';
+import { SuccessModalComponent } from './components/success-modal/success-modal.component';
+import { ErrorModalComponent } from './components/error-modal/error-modal.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ProfileComponent,
-    DictionariesComponent,
-    DictionariesListComponent,
-    LoginComponent,
-    TranslatorComponent,
-    RegisterComponent,
-    AddToDictionaryModalComponent,
-    AddNewDictionaryModalComponent,
-  ],
+    declarations: [
+        AppComponent,
+        ProfileComponent,
+        DictionariesComponent,
+        DictionariesListComponent,
+        LoginComponent,
+        TranslatorComponent,
+        RegisterComponent,
+        AddToDictionaryModalComponent,
+        AddNewDictionaryModalComponent,
+        SuccessModalComponent,
+        ErrorModalComponent,
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,

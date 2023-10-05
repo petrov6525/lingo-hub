@@ -1,6 +1,6 @@
 import {Injectable, OnInit} from '@angular/core';
 import {AuthService} from "../../auth.service";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, forkJoin, Observable, throwError} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {catchError, tap} from "rxjs/operators";
 
@@ -34,17 +34,24 @@ export class DictionaryService implements OnInit{
     return this.translatedWord.value;
   }
 
-  public addWordToDictionary(dictionaries: any[]): any {
+  public addWordToDictionary(dictionaries: any[]): Observable<any> {
       const translatedWord: any = this.getTranslatedWord();
       const token = this.authService.getAuthToken();
       const headers = new HttpHeaders({
         "auth-token": token
       })
-      dictionaries.forEach((id: any)=> {
+    const requests: Observable<any>[] = dictionaries.map((id: any)=> {
         translatedWord.dictionary = {
           id: id
         };
-        this.http.post("http://localhost:8081/word/add", translatedWord, {headers}).subscribe();
+        return this.http.post("http://localhost:8081/word/add", translatedWord, {headers}).pipe(
+          catchError((error: any)=> {
+            console.error(`The word "${translatedWord.origin}" wasn't added to dictionary: ${error}`);
+            return throwError(error);
+          })
+        );
       })
+
+    return forkJoin(requests);
   }
 }

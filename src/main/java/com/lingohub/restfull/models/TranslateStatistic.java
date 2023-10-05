@@ -11,7 +11,7 @@ public class TranslateStatistic implements Serializable {
     @Column(nullable = false, updatable = false)
     private int id;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "language_code_id", referencedColumnName = "id")
     private LanguageCode languageCode;
 

@@ -17,9 +17,10 @@
     </div>
     <div class="buttons">
       <button class="button add-button"
-              [disabled]="checkedDictionaries.length === 0"
+                    [disabled]="checkedDictionaries.length === 0"
               (click)="addClickHandler()">Add</button>
-      <button class="button cancel-button">Cancel</button>
+      <button class="button cancel-button"
+              (click)="cancelClickHandler()">Cancel</button>
     </div>
   </div>
 </div>
