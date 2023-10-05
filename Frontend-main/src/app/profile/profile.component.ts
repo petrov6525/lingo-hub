@@ -80,7 +80,9 @@ export class ProfileComponent implements OnInit {
         this.authService.logout();
 
         // Redirect the user to the login page
+
         this.router.navigate(['/login']);
+
     }
 
     // Add a function to save changes to the user's profile

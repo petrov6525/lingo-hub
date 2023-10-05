@@ -1,31 +1,16 @@
 <body>
-    <div class="dictionary_list">
-        <div class="list_child">Dictionary1</div>
-        <div class="list_child">Dictionary2</div>
-        <div class="list_child">Dictionary3</div>
-        <div class="list_child">Dictionary4</div>
-        <div class="list_child">Dictionary5</div>
-        <div class="list_child">Dictionary6</div>
-        <div class="list_child">Dictionary7</div>
-        <div class="list_child">Dictionary8</div>
+<div class="dictionary_listing">
+  <!-- Use *ngFor to loop through dictionaries -->
+  <div class="listen_d_item" *ngFor="let dictionary of dictionaries" (click)="fetchAndDisplayWords(dictionary.id)">
+    {{ dictionary.name }}
+  </div>
+</div>
+<div class="dictionary_container">
+  <div *ngFor="let word of words" class="listed_translate">
+    <div >
+      <h1>{{ word.origin }}</h1>
+      <h2>{{ word.translate }}</h2>
     </div>
-    <div class="dictionary_container">
-        <div class="top_d_container">
-            <h1>Name</h1>
-            <h2>1:00</h2>
-        </div>
-        <label class="radio_input">
-            <input type="radio" value="true" name="yourRadioGroupName"> True
-        </label>
-        <label class="radio_input">
-            <input type="radio" value="false" name="yourRadioGroupName"> False
-        </label>
-        <label class="radio_input">
-            <input type="radio" value="false" name="yourRadioGroupName"> False
-        </label>
-        <label class="radio_input">
-            <input type="radio" value="false" name="yourRadioGroupName"> False
-        </label>
-        <button type="submit">Submit</button>
-    </div>
+  </div>
+</div>
 </body>

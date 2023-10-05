@@ -10,50 +10,60 @@ body::before {
     background-size: cover;
     z-index: -2;
 }
-body{
-    justify-content: center;
+.dictionary_listing{
+    display: flex;
+    gap: 0.5rem;
+    width: 80vw;
+    margin: 0 auto;
     align-items: center;
-    display: flex;
-    flex-direction: column;
+    justify-content: center;
 }
-.dictionary_list{
-    display: flex;
-    gap: 0.3rem;
-    margin-bottom: 3rem;
-}
-.list_child{
+.listen_d_item{
     background-color: rgba(217, 217, 217, 0.7);
-    padding: 0.5rem;
-    border-radius: 5px;
     color: white;
-    font-weight: 800;
-    font-size: 22px;
-    cursor: pointer;
     transition-duration: 0.2s;
+    cursor: pointer;
+    font-size: 22px;
+    padding: 0.5rem  2rem  0.5rem  2rem;
+    border-radius: 5px;
+    font-weight: 600;
 }
-.list_child:hover {
-    transform: translateY(5px);
-    transition: transform 0.2s ease;
+.listen_d_item:hover{
+    background-color: #D9D9D9;
+    transform: translateY(10%);
 }
 .dictionary_container{
-    display: flex;
-    flex-direction: column;
+    margin: 0 auto;
+    margin-top: 2rem;
+    width: 70vw;
+    height: 30vw;
+    border: 2px solid black;
+    border-radius: 8px;
     background-color: rgba(217, 217, 217, 0.6);
-    width: 60rem;
-    align-items: center;
-}
-.top_d_container {
+    padding: 1rem;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    position: relative;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    overflow: auto;
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #D9D9D9 rgba(217, 217, 217, 0.6); /* Scrollbar color and track color */
+}
+.dictionary_container::-webkit-scrollbar {
+    width: 10px; /* Adjust the scrollbar width as needed */
 }
 
-h2 {
-    position: absolute;
-    right: 10px;
+/* Customize scrollbar thumb for WebKit */
+.dictionary_container::-webkit-scrollbar-thumb {
+    background-color: #D9D9D9; /* Thumb color */
+    border-radius: 6px;
 }
-.radio_input{
-  font-size: 32px;
+.listed_translate{
+    display: flex;
+    flex-direction: column;
+    background-color: #C8B6AE;
+    border: 2px solid black;
+    width: 30%;
+    height: 10rem;
+    align-items: center;
 }
